@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-TUTORIAL_DIR=~/tutorial
+ROOT_DIR=/home1/liangnus/learning/xiaoyu1998/llvm-cpu0
+TUTORIAL_DIR=${ROOT_DIR}/tutorial
 LLVM_PROJECT_DIR=${TUTORIAL_DIR}/llvm-project
 LLVM_TEST_DIR=${TUTORIAL_DIR}/test
 

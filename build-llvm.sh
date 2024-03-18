@@ -7,14 +7,16 @@
 # https://linuxize.com/post/how-to-add-swap-space-on-ubuntu-18-04/
 # 4. reboot
 
-TUTORIAL_DIR=~/tutorial
+ROOT_DIR=/home1/liangnus/learning/xiaoyu1998/llvm-cpu0
+
+TUTORIAL_DIR=${ROOT_DIR}/tutorial
 LLVM_PROJECT_DIR=${TUTORIAL_DIR}/llvm-project
 LLVM_TEST_DIR=${TUTORIAL_DIR}/test
 
 get_llvm()
 {
   if ! test -d ${TUTORIAL_DIR}/llvm-project; then
-    git clone git@github.com:llvm/llvm-project.git --recursive
+    git clone https://github.com/llvm/llvm-project.git  --recursive
     cd llvm-project
     git checkout -b 12.x origin/release/12.x
     git checkout e8a397203c67adbeae04763ce25c6a5ae76af52c
@@ -28,7 +30,7 @@ get_llvm()
 build_llvm()
 {
   if ! test -d ${LLVM_PROJECT_DIR}/build; then
-    mkdir ${LLVM_PROJECT_DIR}/build
+    mkdir -p  ${LLVM_PROJECT_DIR}/build
     pushd ${LLVM_PROJECT_DIR}/build
     OS=`uname -s`
     echo "OS =" ${OS}
@@ -39,6 +41,12 @@ build_llvm()
     popd
   fi
 }
+
+if [ ! -d ${TUTORIAL_DIR} ]; then
+    echo "Tutorial Folder not exist, make dir..."
+    mkdir -p ${TUTORIAL_DIR}
+    echo "Success！"
+fi
 
 pushd ${TUTORIAL_DIR}
 get_llvm
