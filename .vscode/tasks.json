@@ -21,8 +21,8 @@
             "type": "shell",
             "command": "sh",
             "args":[
-                "/home1/liangnus/learning/xiaoyu1998/llvm-cpu0/build-testcode.sh",
-                "/home1/liangnus/learning/xiaoyu1998/llvm-cpu0/input/lxj.cpp"
+                "${workspaceFolder}/build-testcode.sh",
+                "${workspaceFolder}/input/lxj.cpp"
             ]
         },
         // 如果存在多个任务，需要指定一个编译任务顺序

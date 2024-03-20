@@ -2,7 +2,7 @@
 ###
  # @Author: Liangnus
  # @Date: 2024-03-19 05:43:16
- # @LastEditTime: 2024-03-19 22:45:22
+ # @LastEditTime: 2024-04-01 04:58:19
  # @LastEditors: Liangnus
  # @Description: 编译测试代码脚本
  # @FilePath: /llvm-cpu0/build-testcode.sh
@@ -10,7 +10,7 @@
 
 # 检查用户是否提供了测试代码文件
 if [ $# -eq 0 ]; then
-    echo "\033[1;45m 请提供测试代码文件 \033[4m"
+    echo "\033[1;45m 请提供测试代码文件 \033[0m"
     exit 1
 fi
 
@@ -26,7 +26,7 @@ fi
 # 使用clang/clang++编译
 # 使用shell参数扩展功能获取文件后缀部分和文件名
 CLANG=$(pwd)/tutorial/llvm-project/build/bin/clang
-CLANG_PLUSPLUS=$(pwd)/tutorial/llvm-project/build/bin/clang
+CLANG_PLUSPLUS=$(pwd)/tutorial/llvm-project/build/bin/clang++
 file_extension=${test_file##*.}
 file_name_without_extension=${test_file%.*}
 subffix=".ll"
