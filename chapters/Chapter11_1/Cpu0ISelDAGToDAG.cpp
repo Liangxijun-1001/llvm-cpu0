@@ -158,4 +158,3 @@ void Cpu0DAGToDAGISel::Select(SDNode *Node) {
   // Select the default instruction
   SelectCode(Node);
 }
-

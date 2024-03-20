@@ -1,21 +1,21 @@
 #include <thread>
 #include <atomic>
 #include <cassert>
- 
+
 std::atomic<bool> x = {false};
 std::atomic<bool> y = {false};
 std::atomic<int> z = {0};
- 
+
 void write_x()
 {
     x.store(true, std::memory_order_seq_cst);
 }
- 
+
 void write_y()
 {
     y.store(true, std::memory_order_seq_cst);
 }
- 
+
 void read_x_then_y()
 {
     while (!x.load(std::memory_order_seq_cst))
@@ -24,7 +24,7 @@ void read_x_then_y()
         ++z;
     }
 }
- 
+
 void read_y_then_x()
 {
     while (!y.load(std::memory_order_seq_cst))
@@ -33,7 +33,7 @@ void read_y_then_x()
         ++z;
     }
 }
- 
+
 int main()
 {
     std::thread a(write_x);

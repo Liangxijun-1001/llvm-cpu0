@@ -31,8 +31,8 @@ namespace llvm {
 class Cpu0FunctionInfo : public MachineFunctionInfo {
 public:
   Cpu0FunctionInfo(MachineFunction& MF)
-  : MF(MF), 
-    VarArgsFrameIndex(0), 
+  : MF(MF),
+    VarArgsFrameIndex(0),
     MaxCallFrameSize(0)
     {}
 
@@ -56,4 +56,3 @@ private:
 } // end of namespace llvm
 
 #endif // CPU0_MACHINE_FUNCTION_INFO_H
-

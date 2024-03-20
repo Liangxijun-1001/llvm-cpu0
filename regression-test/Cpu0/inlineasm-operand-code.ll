@@ -66,4 +66,3 @@ entry:
   tail call i32 asm sideeffect "addiu $0,$1,${2:z}", "=r,r,I"(i32 7, i32 0) nounwind
   ret i32 0
 }
-

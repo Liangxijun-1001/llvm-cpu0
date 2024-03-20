@@ -1,4 +1,4 @@
-; RUN: llc -march=cpu0el -relocation-model=static < %s | FileCheck %s 
+; RUN: llc -march=cpu0el -relocation-model=static < %s | FileCheck %s
 
 define i32 @foo(i32 %a) nounwind readnone {
 entry:

@@ -53,4 +53,3 @@ MachinePointerInfo Cpu0FunctionInfo::callPtrInfo(const GlobalValue *GV) {
 }
 
 void Cpu0FunctionInfo::anchor() { }
-

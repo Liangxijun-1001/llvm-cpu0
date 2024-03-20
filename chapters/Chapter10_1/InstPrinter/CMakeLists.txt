@@ -7,4 +7,3 @@ add_llvm_component_library(LLVMCpu0AsmPrinter
   ADD_TO_COMPONENT
   Cpu0
   )
-

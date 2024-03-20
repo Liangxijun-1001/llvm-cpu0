@@ -91,4 +91,3 @@ int Cpu0ABIInfo::EhDataRegSize() const {
   else
     return 2;
 }
-

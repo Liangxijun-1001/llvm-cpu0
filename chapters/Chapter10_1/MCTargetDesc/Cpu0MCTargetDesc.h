@@ -65,4 +65,3 @@ std::unique_ptr<MCObjectTargetWriter> createCpu0ELFObjectWriter(const Triple &TT
 #include "Cpu0GenSubtargetInfo.inc"
 
 #endif
-

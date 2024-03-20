@@ -18,4 +18,3 @@ if.then:                                          ; preds = %entry
 if.end:                                           ; preds = %entry, %if.then
   ret void
 }
-

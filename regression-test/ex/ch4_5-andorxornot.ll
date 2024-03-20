@@ -53,4 +53,3 @@ entry:
   %add2 = add nsw i32 %add1, %10
   ret i32 %add2
 }
-

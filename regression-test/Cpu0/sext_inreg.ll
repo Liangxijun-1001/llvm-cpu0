@@ -10,4 +10,3 @@ define i32 @test_sext_inreg_from_32(i32 %in) {
 ; CHECK:  subu	${{[0-9]+|t9}}, $[[T2]], $[[T1]]
   ret i32 %ext
 }
-

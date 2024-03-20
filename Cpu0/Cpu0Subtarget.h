@@ -143,7 +143,7 @@ public:
     return false;
 #endif
   }
-  
+
   bool hasChapter9_1() const {
 #if CH >= CH9_1
     return true;
@@ -272,7 +272,7 @@ public:
   bool enableLongBranchPass() const {
     return hasCpu032II();
   }
-  
+
   unsigned stackAlignment() const { return 8; }
 
   Cpu0Subtarget &initializeSubtargetDependencies(StringRef CPU, StringRef FS,

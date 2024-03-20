@@ -82,4 +82,3 @@ if.end:                                           ; preds = %if.else, %if.then
 declare void @foo3(i32*)
 
 declare i32 @printf(i8* nocapture, ...) nounwind
-

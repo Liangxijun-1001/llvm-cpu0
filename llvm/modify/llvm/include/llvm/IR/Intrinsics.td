@@ -1295,8 +1295,8 @@ def int_donothing : DefaultAttrsIntrinsic<[], [], [IntrNoMem, IntrWillReturn]>;
 def int_sideeffect : DefaultAttrsIntrinsic<[], [], [IntrInaccessibleMemOnly, IntrWillReturn]>;
 
 // The pseudoprobe intrinsic works as a place holder to the block it probes.
-// Like the sideeffect intrinsic defined above, this intrinsic is treated by the 
-// optimizer as having opaque side effects so that it won't be get rid of or moved 
+// Like the sideeffect intrinsic defined above, this intrinsic is treated by the
+// optimizer as having opaque side effects so that it won't be get rid of or moved
 // out of the block it probes.
 def int_pseudoprobe : Intrinsic<[], [llvm_i64_ty, llvm_i64_ty, llvm_i32_ty, llvm_i64_ty],
                                     [IntrInaccessibleMemOnly, IntrWillReturn]>;

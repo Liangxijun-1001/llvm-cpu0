@@ -26,7 +26,7 @@
 #include "ch9_3_alloc.cpp"
 #include "ch11_2.cpp"
 
-// Test build only for the following files on build-run_backend.sh since it 
+// Test build only for the following files on build-run_backend.sh since it
 // needs lld linker support.
 // Test in build-slink.sh
 #include "ch6_1.cpp"
@@ -48,7 +48,7 @@ int test_rotate()
   int a = test_rotate_left1(); // rolv 4, 30 = 1
   int b = test_rotate_left(); // rol 8, 30  = 2
   int c = test_rotate_right(); // rorv 1, 30 = 4
-  
+
   return (a+b+c);
 }
 

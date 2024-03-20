@@ -145,4 +145,3 @@ const Cpu0AnalyzeImmediate::InstSeq
 
   return Insts;
 }
-

@@ -1,4 +1,4 @@
-; RUN: llc -march=cpu0el -relocation-model=static < %s | FileCheck %s 
+; RUN: llc -march=cpu0el -relocation-model=static < %s | FileCheck %s
 
 declare i8* @llvm.stacksave()
 
@@ -12,4 +12,3 @@ define i32* @test(i32 %N) {
         %Q = alloca i32, i32 %N         ; <i32*> [#uses=0]
         ret i32* %P
 }
-

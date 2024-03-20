@@ -30,7 +30,7 @@ void Cpu0InstrInfo::anchor() {}
 
 //@Cpu0InstrInfo {
 Cpu0InstrInfo::Cpu0InstrInfo(const Cpu0Subtarget &STI)
-    : 
+    :
       Cpu0GenInstrInfo(Cpu0::ADJCALLSTACKDOWN, Cpu0::ADJCALLSTACKUP),
       Subtarget(STI) {}
 
@@ -59,4 +59,3 @@ unsigned Cpu0InstrInfo::GetInstSizeInBytes(const MachineInstr &MI) const {
     return MI.getDesc().getSize();
   }
 }
-

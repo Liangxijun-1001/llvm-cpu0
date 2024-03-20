@@ -17,4 +17,3 @@ int test_struct()
 
   return day; // 2012
 }
-

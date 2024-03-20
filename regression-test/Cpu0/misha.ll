@@ -65,5 +65,3 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
 for.end:                                          ; preds = %for.body, %entry
   ret i32 undef
 }
-
-

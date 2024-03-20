@@ -21,4 +21,3 @@ entry:
   %cond = select i1 %tobool, i32 %0, i32 0
   ret i32 %cond
 }
-

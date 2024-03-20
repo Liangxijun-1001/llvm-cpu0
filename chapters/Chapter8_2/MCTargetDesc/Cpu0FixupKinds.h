@@ -48,7 +48,7 @@ namespace Cpu0 {
     // PC relative branch fixup resulting in - R_CPU0_PC24.
     // cpu0 PC24, e.g. jeq, jmp
     fixup_Cpu0_PC24,
-    
+
 
     // resulting in - R_CPU0_GOT_HI16
     fixup_Cpu0_GOT_HI16,
@@ -65,4 +65,3 @@ namespace Cpu0 {
 } // namespace llvm
 
 #endif // LLVM_CPU0_CPU0FIXUPKINDS_H
-

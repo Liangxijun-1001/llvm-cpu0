@@ -25,4 +25,3 @@ entry:
   %2 = load i64* %e, align 8
   ret i64 %2
 }
-

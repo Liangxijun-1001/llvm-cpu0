@@ -10,4 +10,3 @@ int test_struct()
 
   return i; // 10
 }
-

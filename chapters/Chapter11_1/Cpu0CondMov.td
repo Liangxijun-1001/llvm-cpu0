@@ -74,4 +74,3 @@ defm : MovzPats0Slt<CPURegs, CPURegs, MOVZ_I_I, SLT, SLTu, SLTi, SLTiu>;
 defm : MovzPats1<CPURegs, CPURegs, MOVZ_I_I, XOR>;
 
 defm : MovnPats<CPURegs, CPURegs, MOVN_I_I, XOR>;
-

@@ -45,4 +45,3 @@ void Cpu0FunctionInfo::createEhDataRegsFI() {
 }
 
 void Cpu0FunctionInfo::anchor() { }
-

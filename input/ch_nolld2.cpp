@@ -15,4 +15,3 @@ int test_nolld2()
   if (a != 31) pass = false;
   return pass;
 }
-

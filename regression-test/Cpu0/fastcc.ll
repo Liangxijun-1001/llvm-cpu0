@@ -182,4 +182,3 @@ entry:
   store float %a20, float* @gf20, align 4
   ret void
 }
-

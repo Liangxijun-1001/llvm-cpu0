@@ -12,7 +12,7 @@ int test_add_overflow()
   int c = 0;
 
   c = a + b;
-  
+
   return 0;
 }
 
@@ -23,6 +23,6 @@ int test_sub_overflow()
   int c = 0;
 
   c = a - b;
-  
+
   return 0;
 }

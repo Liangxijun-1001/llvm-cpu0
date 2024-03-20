@@ -95,4 +95,3 @@ cond.end14:                                       ; preds = %cond.false13, %cond
 ; cpu032I:  cmp	$sw, ${{[0-9]+|t9}}, ${{[0-9]+|t9}}
 ; cpu032I:  jne $sw
 ; cpu032II:  bne ${{[0-9]+|t9}}, ${{[0-9]+|t9}}
-

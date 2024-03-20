@@ -6,9 +6,8 @@ long long test_longlong()
 {
   unsigned int a1 = 0x3001000;
   unsigned int b1 = 0x2001000;
-  
+
   long long f = (long long)a1 * (long long)b1; // f = 0x00060050,01000000
 
   return f; // f = 0x00060050,01000000
 }
-

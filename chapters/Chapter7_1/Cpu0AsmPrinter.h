@@ -49,7 +49,7 @@ public:
 
   explicit Cpu0AsmPrinter(TargetMachine &TM,
                           std::unique_ptr<MCStreamer> Streamer)
-    : AsmPrinter(TM, std::move(Streamer)), 
+    : AsmPrinter(TM, std::move(Streamer)),
       MCInstLowering(*this) {
     Subtarget = static_cast<Cpu0TargetMachine &>(TM).getSubtargetImpl();
   }
@@ -75,4 +75,3 @@ public:
 }
 
 #endif
-

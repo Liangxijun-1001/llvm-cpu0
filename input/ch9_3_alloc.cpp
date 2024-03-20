@@ -5,7 +5,7 @@
 
 /// start
 
-// This file needed compile without option, -target mips-unknown-linux-gnu, so 
+// This file needed compile without option, -target mips-unknown-linux-gnu, so
 // it is verified by build-run_backend2.sh or verified in lld linker support
 // (build-slinker.sh).
 
@@ -15,8 +15,8 @@
 int sum(int x1, int x2, int x3, int x4, int x5, int x6)
 {
   int sum = x1 + x2 + x3 + x4 + x5 + x6;
-  
-  return sum; 
+
+  return sum;
 }
 
 int weight_sum(int x1, int x2, int x3, int x4, int x5, int x6)
@@ -34,6 +34,6 @@ int weight_sum(int x1, int x2, int x3, int x4, int x5, int x6)
 int test_alloc()
 {
   int a = weight_sum(1, 2, 3, 4, 5, 6); // 31
-  
+
   return a;
 }

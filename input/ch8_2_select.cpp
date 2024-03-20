@@ -23,4 +23,3 @@ int test_movx_2()
 
   return c;
 }
-

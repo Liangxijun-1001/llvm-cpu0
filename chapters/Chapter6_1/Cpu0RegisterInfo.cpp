@@ -49,7 +49,7 @@ Cpu0RegisterInfo::getCalleeSavedRegs(const MachineFunction *MF) const {
 const uint32_t *
 Cpu0RegisterInfo::getCallPreservedMask(const MachineFunction &MF,
                                        CallingConv::ID) const {
-  return CSR_O32_RegMask; 
+  return CSR_O32_RegMask;
 }
 
 // pure virtual method
@@ -76,7 +76,7 @@ getReservedRegs(const MachineFunction &MF) const {
 }
 
 //@eliminateFrameIndex {
-//- If no eliminateFrameIndex(), it will hang on run. 
+//- If no eliminateFrameIndex(), it will hang on run.
 // pure virtual method
 // FrameIndex represent objects inside a abstract stack.
 // We must replace FrameIndex with an stack/frame pointer
@@ -177,4 +177,3 @@ getFrameRegister(const MachineFunction &MF) const {
   return TFI->hasFP(MF) ? (Cpu0::FP) :
                           (Cpu0::SP);
 }
-

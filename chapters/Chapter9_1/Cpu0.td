@@ -7,7 +7,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-// Without this will have error: 'cpu032I' is not a recognized processor for 
+// Without this will have error: 'cpu032I' is not a recognized processor for
 //  this target (ignoring processor)
 //===----------------------------------------------------------------------===//
 // Cpu0 Subtarget features                                                    //
@@ -53,26 +53,26 @@ def FeatureChapter12_1 : SubtargetFeature<"ch12_1", "HasChapterDummy", "true",
                                 "Enable Chapter instructions.">;
 def FeatureChapterAll  : SubtargetFeature<"chall", "HasChapterDummy", "true",
                                 "Enable Chapter instructions.",
-                                [FeatureChapter3_1, FeatureChapter3_2, 
-                                 FeatureChapter3_3, FeatureChapter3_4, 
-                                 FeatureChapter3_5, 
-                                 FeatureChapter4_1, FeatureChapter4_2, 
-                                 FeatureChapter5_1, FeatureChapter6_1, 
-                                 FeatureChapter7_1, FeatureChapter8_1, 
-                                 FeatureChapter8_2, FeatureChapter9_1, 
-                                 FeatureChapter9_2, FeatureChapter9_3, 
-                                 FeatureChapter10_1, 
-                                 FeatureChapter11_1, FeatureChapter11_2, 
+                                [FeatureChapter3_1, FeatureChapter3_2,
+                                 FeatureChapter3_3, FeatureChapter3_4,
+                                 FeatureChapter3_5,
+                                 FeatureChapter4_1, FeatureChapter4_2,
+                                 FeatureChapter5_1, FeatureChapter6_1,
+                                 FeatureChapter7_1, FeatureChapter8_1,
+                                 FeatureChapter8_2, FeatureChapter9_1,
+                                 FeatureChapter9_2, FeatureChapter9_3,
+                                 FeatureChapter10_1,
+                                 FeatureChapter11_1, FeatureChapter11_2,
                                  FeatureChapter12_1]>;
 
 def FeatureCmp         : SubtargetFeature<"cmp", "HasCmp", "true",
                                 "Enable 'cmp' instructions.">;
 def FeatureSlt         : SubtargetFeature<"slt", "HasSlt", "true",
                                 "Enable 'slt' instructions.">;
-def FeatureCpu032I     : SubtargetFeature<"cpu032I", "Cpu0ArchVersion", 
+def FeatureCpu032I     : SubtargetFeature<"cpu032I", "Cpu0ArchVersion",
                                 "Cpu032I", "Cpu032I ISA Support",
                                 [FeatureCmp, FeatureChapterAll]>;
-def FeatureCpu032II    : SubtargetFeature<"cpu032II", "Cpu0ArchVersion",                      
+def FeatureCpu032II    : SubtargetFeature<"cpu032II", "Cpu0ArchVersion",
                                "Cpu032II", "Cpu032II ISA Support (slt)",
                                 [FeatureCmp, FeatureSlt, FeatureChapterAll]>;
 
@@ -102,7 +102,7 @@ def : Proc<"cpu032II", [FeatureCpu032II]>;
 //   FeatureSlt =  1ULL << 3
 // };
 
-// Will generate Cpu0GenAsmWrite.inc included by Cpu0InstPrinter.cpp, contents 
+// Will generate Cpu0GenAsmWrite.inc included by Cpu0InstPrinter.cpp, contents
 //  as follows,
 // void Cpu0InstPrinter::printInstruction(const MCInst *MI, raw_ostream &O) {...}
 // const char *Cpu0InstPrinter::getRegisterName(unsigned RegNo) {...}
@@ -110,4 +110,3 @@ def Cpu0 : Target {
 // def Cpu0InstrInfo : InstrInfo as before.
   let InstructionSet = Cpu0InstrInfo;
 }
-

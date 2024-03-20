@@ -32,4 +32,3 @@ public:
 } // end namespace llvm
 
 #endif
-

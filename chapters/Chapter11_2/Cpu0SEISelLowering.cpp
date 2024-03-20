@@ -39,7 +39,7 @@ Cpu0SETargetLowering::Cpu0SETargetLowering(const Cpu0TargetMachine &TM,
   // Set up the register classes
   addRegisterClass(MVT::i32, &Cpu0::CPURegsRegClass);
 
-// must, computeRegisterProperties - Once all of the register classes are 
+// must, computeRegisterProperties - Once all of the register classes are
 //  added, this allows us to compute derived properties we expose.
   computeRegisterProperties(Subtarget.getRegisterInfo());
 }
@@ -71,4 +71,3 @@ isEligibleForTailCallOptimization(const Cpu0CC &Cpu0CCInfo,
   // caller's.
   return NextStackOffset <= FI.getIncomingArgSize();
 }
-

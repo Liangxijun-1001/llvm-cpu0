@@ -1,4 +1,4 @@
-; RUN: llc  < %s -march=cpu0el | FileCheck %s 
+; RUN: llc  < %s -march=cpu0el | FileCheck %s
 
 define float @foo0(i32 %a, float %d) nounwind readnone {
 entry:

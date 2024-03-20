@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug",
+            "type": "lldb",
+            "request": "launch",
+            //调试程序路径，需根据实际情况配置，需要调试的后端代码逻辑
+            "program": "/home1/liangnus/learning/xiaoyu1998/llvm-cpu0/tutorial/test/build/bin/llc",
+            "args": ["-O2",
+                    "-march=cpu0",
+                    "--debug-only=isel",
+                     "/home1/liangnus/learning/xiaoyu1998/llvm-cpu0/input/lxj.ll"],
+            "stopAtEntry": true,
+            "cwd": "/home1/liangnus/learning/xiaoyu1998/llvm-cpu0/tutorial/test/build", //工作目录，一般指编译文件路径，根据实际情况填写
+            "environment": [],
+            "externalConsole": false,
+            "preLaunchTask": "buildAll" //构建命令 1. 先编译llvm-cpu0 2. 编译LLVM汇编（tasks.json中的配置）
+        }
+    ]
+}

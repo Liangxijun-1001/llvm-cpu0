@@ -1,4 +1,4 @@
-/* 
+/*
 ~/llvm/debug/build/bin/clang -target mips-unknown-linux-gnu -emit-llvm -S ch7_1_fmul.c
         ...
         %mul = fmul float %0, %1

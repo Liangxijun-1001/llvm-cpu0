@@ -35,4 +35,3 @@ declare void @f1(...)
 declare void @f2(i32)
 
 declare void @f3(i32, i32)
-

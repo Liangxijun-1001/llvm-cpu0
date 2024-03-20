@@ -11,7 +11,7 @@ T sum(T amount, ...)
   T i = 0;
   T val = 0;
   T sum = 0;
-	
+
   va_list vl;
   va_start(vl, amount);
   for (i = 0; i < amount; i++)
@@ -20,14 +20,14 @@ T sum(T amount, ...)
     sum += val;
   }
   va_end(vl);
-  
-  return sum; 
+
+  return sum;
 }
 
 int test_template()
 {
   int a = (int)(sum<int>(6, 0, 1, 2, 3, 4, 5));
-	
+
   return a; // 15
 }
 

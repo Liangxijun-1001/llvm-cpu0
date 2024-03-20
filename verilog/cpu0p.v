@@ -26,9 +26,9 @@
 `define IR   cpu.ir         // 指令暫存器
 
 // SW Flage
-`define I2   `SW[16] // Hardware Interrupt 1, IO1 interrupt, status, 
+`define I2   `SW[16] // Hardware Interrupt 1, IO1 interrupt, status,
                     // 1: in interrupt
-`define I1   `SW[15] // Hardware Interrupt 0, timer interrupt, status, 
+`define I1   `SW[15] // Hardware Interrupt 0, timer interrupt, status,
                     // 1: in interrupt
 `define I0   `SW[14] // Software interrupt, status, 1: in interrupt
 `define I    `SW[13] // Interrupt, 1: in interrupt
@@ -42,9 +42,9 @@
 `define C    `SW[2]  // Carry
 `define Z    `SW[1]  // Zero
 `define N    `SW[0]  // Negative flag
-  
+
 `define LE   cpu.CF[0]  // Endian bit, Big Endian:0, Little Endian:1
-  
+
 `define EXE 3'b000
 `define RESET 3'b001
 `define ABORT 3'b010
@@ -57,8 +57,8 @@ module iFetch(input clock, reset, iReady, output reg iGet, oReady, input oGet);
   reg [31:0] pc, pc0;
 
   always @(posedge clock) begin
-    if (reset) begin oReady=0; iGet=0; state=`IDLE; end 
-    else case (state) 
+    if (reset) begin oReady=0; iGet=0; state=`IDLE; end
+    else case (state)
       `IDLE: begin // 閒置中
         #1;
         if (iReady) begin // 輸入資料已準備好
@@ -74,12 +74,12 @@ module iFetch(input clock, reset, iReady, output reg iGet, oReady, input oGet);
         end
       end
       `WAIT_ACK:begin // 等待回應 (資料被取走)
-        #1;                
+        #1;
         if (oGet) begin // 資料被取走了
           oReady = 0; // 下一筆輸出資料尚未準備好。
           state = `IDLE; // 回到閒置狀態，準備取得下一筆輸入資料
         end
-        #1;                
+        #1;
         iGet = 0;  // 下一筆輸入資料尚未準備好。
       end
     endcase
@@ -99,10 +99,10 @@ module iDecode(input clock, reset, iReady, output reg iGet, oReady, input oGet);
   reg signed [31:0] c12, c16, c24, Ra, Rb, Rc; // ipc:instruction PC
 
   always @(posedge clock) begin
-    if (reset) begin oReady=0; iGet=0; state=`IDLE; end 
-    else case (state) 
+    if (reset) begin oReady=0; iGet=0; state=`IDLE; end
+    else case (state)
       `IDLE: begin // 閒置中
-        #1;                
+        #1;
         if (iReady && (!cpu.m_en1 || cpu.m_ack1)) begin // 輸入資料已準備好
           iMemReadEnd(ir); // IR = dbus = m[PC]
           pc0 = cpu.if1.pc0;
@@ -119,21 +119,21 @@ module iDecode(input clock, reset, iReady, output reg iGet, oReady, input oGet);
           c24 = cx24; // 取出 cx24 並轉為 32 位元有號數 c24
           Ra = cpu.R[a];
           Rb = cpu.R[b];
-          Rc = cpu.R[c]; 
+          Rc = cpu.R[c];
           #1;
           oReady = 1; // 輸出資料已準備好
           state = `WAIT_ACK; // 進入等待狀態
           $display("%-4d:decode, pc0=%x pc=%x ir=%x op=%x a=%x b=%x c=%x cx12=%x", $stime, pc0, pc, ir, op, a, b, c, cx12);
         end
-        #1;                
+        #1;
       end
       `WAIT_ACK:begin // 等待回應 (資料被取走)
-        #1;                
+        #1;
         if (oGet) begin // 資料被取走了
           oReady = 0; // 下一筆輸出資料尚未準備好。
           state = `IDLE; // 回到閒置狀態，準備取得下一筆輸入資料
         end
-        #1;                
+        #1;
         iGet = 0;  // 下一筆輸入資料尚未準備好。
       end
     endcase
@@ -153,10 +153,10 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
   integer i;
 
   always @(posedge clock) begin
-    if (reset) begin oReady=0; iGet=0; state=`IDLE; skip = 0; end 
-    else case (state) 
+    if (reset) begin oReady=0; iGet=0; state=`IDLE; skip = 0; end
+    else case (state)
       `IDLE: begin // 閒置中
-        #1;                
+        #1;
         if (iReady && (!cpu.m_en2 || cpu.m_ack2)) begin // 輸入資料已準備好
           if (skip > 0) skip = skip-1; else begin
           // 處理輸入資料
@@ -197,17 +197,17 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
           // Conditional move
           cpu.MOVZ:  if (Rc==0) regSet(a, Rb);             // move if Rc equal to 0
           cpu.MOVN:  if (Rc!=0) regSet(a, Rb);             // move if Rc not equal to 0
-          // Mathematic 
+          // Mathematic
           cpu.ADDiu: regSet(a, Rb+c16);                   // ADDiu Ra, Rb+Cx; Ra<=Rb+Cx
           cpu.CMP:   begin `N=(Rb-Rc<0);`Z=(Rb-Rc==0); end // CMP Rb, Rc; SW=(Rb >=< Rc)
           cpu.ADDu:  regSet(a, Rb+Rc);               // ADDu Ra,Rb,Rc; Ra<=Rb+Rc
-          cpu.ADD:   begin regSet(a, Rb+Rc); if (a < Rb) `V = 1; else `V = 0; 
+          cpu.ADD:   begin regSet(a, Rb+Rc); if (a < Rb) `V = 1; else `V = 0;
             if (`V) begin `I0 = 1; `I = 1; end
           end
                                                  // ADD Ra,Rb,Rc; Ra<=Rb+Rc
           cpu.SUBu:  regSet(a, Rb-Rc);               // SUBu Ra,Rb,Rc; Ra<=Rb-Rc
-          cpu.SUB:   begin regSet(a, Rb-Rc); if (Rb < 0 && Rc > 0 && a >= 0) 
-                 `V = 1; else `V =0; 
+          cpu.SUB:   begin regSet(a, Rb-Rc); if (Rb < 0 && Rc > 0 && a >= 0)
+                 `V = 1; else `V =0;
             if (`V) begin `I0 = 1; `I = 1; end
           end         // SUB Ra,Rb,Rc; Ra<=Rb-Rc
           cpu.CLZ:   begin
@@ -223,11 +223,11 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
             regSet(a, i);
           end
           cpu.MUL:   regSet(a, Rb*Rc);               // MUL Ra,Rb,Rc;     Ra<=Rb*Rc
-          cpu.DIVu:  regHILOSet(URa%URb, URa/URb);   // DIVu URa,URb; HI<=URa%URb; 
+          cpu.DIVu:  regHILOSet(URa%URb, URa/URb);   // DIVu URa,URb; HI<=URa%URb;
                                                  // LO<=URa/URb
                                                  // without exception overflow
-          cpu.DIV:   begin regHILOSet(Ra%Rb, Ra/Rb); 
-                 if ((Ra < 0 && Rb < 0) || (Ra == 0)) `V = 1; 
+          cpu.DIV:   begin regHILOSet(Ra%Rb, Ra/Rb);
+                 if ((Ra < 0 && Rb < 0) || (Ra == 0)) `V = 1;
                  else `V =0; end  // DIV Ra,Rb; HI<=Ra%Rb; LO<=Ra/Rb; With overflow
           cpu.AND:   regSet(a, Rb&Rc);               // AND Ra,Rb,Rc; Ra<=(Rb and Rc)
           cpu.ANDi:  regSet(a, Rb&uc16);             // ANDi Ra,Rb,c16; Ra<=(Rb and c16)
@@ -237,16 +237,16 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
           cpu.XORi:  regSet(a, Rb^uc16);             // XORi Ra,Rb,c16; Ra<=(Rb xor c16)
           cpu.LUi:   regSet(a, uc16<<16);
           cpu.SHL:   regSet(a, Rb<<c5);     // Shift Left; SHL Ra,Rb,Cx; Ra<=(Rb << Cx)
-          cpu.SRA:   regSet(a, (Rb&'h80000000)|(Rb>>c5)); 
+          cpu.SRA:   regSet(a, (Rb&'h80000000)|(Rb>>c5));
                                     // Shift Right with signed bit fill;
                                     // SHR Ra,Rb,Cx; Ra<=(Rb&0x80000000)|(Rb>>Cx)
-          cpu.SHR:   regSet(a, Rb>>c5);     // Shift Right with 0 fill; 
+          cpu.SHR:   regSet(a, Rb>>c5);     // Shift Right with 0 fill;
                                         // SHR Ra,Rb,Cx; Ra<=(Rb >> Cx)
           cpu.SHLV:  regSet(a, Rb<<Rc);     // Shift Left; SHLV Ra,Rb,Rc; Ra<=(Rb << Rc)
-          cpu.SRAV:  regSet(a, (Rb&'h80000000)|(Rb>>Rc)); 
+          cpu.SRAV:  regSet(a, (Rb&'h80000000)|(Rb>>Rc));
                                     // Shift Right with signed bit fill;
                                     // SHRV Ra,Rb,Rc; Ra<=(Rb&0x80000000)|(Rb>>Rc)
-          cpu.SHRV:  regSet(a, Rb>>Rc);     // Shift Right with 0 fill; 
+          cpu.SHRV:  regSet(a, Rb>>Rc);     // Shift Right with 0 fill;
                                         // SHRV Ra,Rb,Rc; Ra<=(Rb >> Rc)
           cpu.ROL:   regSet(a, (Rb<<c5)|(Rb>>(32-c5)));     // Rotate Left;
           cpu.ROR:   regSet(a, (Rb>>c5)|(Rb<<(32-c5)));     // Rotate Right;
@@ -255,7 +255,7 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
             while (Rc > 32) Rc=Rc-32;
             regSet(a, (Rb<<Rc)|(Rb>>(32-Rc)));     // Rotate Left;
           end
-          cpu.RORV:  begin 
+          cpu.RORV:  begin
             while (Rc < -32) Rc=Rc+32;
             while (Rc > 32) Rc=Rc-32;
             regSet(a, (Rb>>Rc)|(Rb<<(32-Rc)));     // Rotate Right;
@@ -264,10 +264,10 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
           cpu.MFHI:  regSet(a, cpu.HI);         // MFHI Ra; Ra<=HI
           cpu.MTLO:  cpu.LO = Ra;               // MTLO Ra; LO<=Ra
           cpu.MTHI:  cpu.HI = Ra;               // MTHI Ra; HI<=Ra
-          cpu.MULT:  {cpu.HI, cpu.LO}=Ra*Rb;        // MULT Ra,Rb; HI<=((Ra*Rb)>>32); 
+          cpu.MULT:  {cpu.HI, cpu.LO}=Ra*Rb;        // MULT Ra,Rb; HI<=((Ra*Rb)>>32);
                                         // LO<=((Ra*Rb) and 0x00000000ffffffff);
                                         // with exception overflow
-          cpu.MULTu: {cpu.HI, cpu.LO}=URa*URb;      // MULT URa,URb; HI<=((URa*URb)>>32); 
+          cpu.MULTu: {cpu.HI, cpu.LO}=URa*URb;      // MULT URa,URb; HI<=((URa*URb)>>32);
                                         // LO<=((URa*URb) and 0x00000000ffffffff);
                                         // without exception overflow
           cpu.MFC0:  regSet(a, cpu.C0R[b]);     // MFC0 a, b; Ra<=C0R[Rb]
@@ -280,7 +280,7 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
           cpu.SLTi:  if (Rb < c16) cpu.R[a]=1; else cpu.R[a]=0;
           cpu.SLTiu: if (Rb < c16) cpu.R[a]=1; else cpu.R[a]=0;
           // Branch Instructions
-          cpu.BEQ:   if (Ra==Rb) `PC=`PC+c16; 
+          cpu.BEQ:   if (Ra==Rb) `PC=`PC+c16;
           cpu.BNE:   if (Ra!=Rb) `PC=`PC+c16;
         `endif
           // Jump Instructions
@@ -288,32 +288,32 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
           cpu.JNE:   if (!`Z) `PC=`PC+c24;           // JNE Cx; if SW(!=) PC PC+Cx
           cpu.JLT:   if (`N)`PC=`PC+c24;             // JLT Cx; if SW(<) PC  PC+Cx
           cpu.JGT:   if (!`N&&!`Z) `PC=`PC+c24;      // JGT Cx; if SW(>) PC  PC+Cx
-          cpu.JLE:   if (`N || `Z) `PC=`PC+c24;      // JLE Cx; if SW(<=) PC PC+Cx    
+          cpu.JLE:   if (`N || `Z) `PC=`PC+c24;      // JLE Cx; if SW(<=) PC PC+Cx
           cpu.JGE:   if (!`N || `Z) `PC=`PC+c24;     // JGE Cx; if SW(>=) PC PC+Cx
           cpu.JMP:   `PC = `PC+c24;                  // JMP Cx; PC <= PC+Cx
           cpu.JALR:  begin regSet(a, `PC);`PC=Rb; end // JALR Ra,Rb; Ra<=PC; PC<=Rb
           cpu.BAL:   begin `LR=`PC;`PC=`PC + c24; end // BAL Cx; LR<=PC; PC<=PC+Cx
           cpu.JSUB:  begin `LR=`PC;`PC=`PC + c24; end // JSUB Cx; LR<=PC; PC<=PC+Cx
           cpu.RET:   begin `PC=Ra; end               // RET; PC <= Ra
-          default : 
+          default :
             $display("%4dns %8x : OP code %8x not support", $stime, pc0, op);
           endcase
           Ra = cpu.R[a];
           $display("%-4d:exec  , pc0=%x ir=%x Ra=%x=%-4d Rb=%x Rc=%x", $stime, pc0, ir, Ra, Ra, Rb, Rc);
           end
-          #1;                
+          #1;
           oReady = 1; // 輸出資料已準備好
           state = `WAIT_ACK; // 進入等待狀態
         end
       end
       `WAIT_ACK:begin // 等待回應 (資料被取走)
-        #1;                
+        #1;
         if (oGet) begin // 資料被取走了
-            #1;                
+            #1;
             oReady = 0; // 下一筆輸出資料尚未準備好。
             state = `IDLE; // 回到閒置狀態，準備取得下一筆輸入資料
         end
-        #1;                
+        #1;
         iGet = 0;  // 下一筆輸入資料尚未準備好。
       end
     endcase
@@ -333,10 +333,10 @@ module iMemAccess(input clock, reset, iReady, output reg iGet, oReady, input oGe
   reg signed [31:0] c12, c16, c24, Ra, Rb, Rc; // ipc:instruction PC
 
   always @(posedge clock) begin
-    if (reset) begin oReady=0; iGet=0; state=`IDLE; end 
-    else case (state) 
+    if (reset) begin oReady=0; iGet=0; state=`IDLE; end
+    else case (state)
       `IDLE: begin // 閒置中
-        #1;                
+        #1;
         if (iReady && (!cpu.m_en1 || cpu.m_ack1)) begin // 輸入資料已準備好
           pc0 = cpu.ie1.pc0;
           pc = cpu.ie1.pc;
@@ -353,7 +353,7 @@ module iMemAccess(input clock, reset, iReady, output reg iGet, oReady, input oGe
           c24 = cx24; // 取出 cx24 並轉為 32 位元有號數 c24
           Ra = cpu.R[a];
           Rb = cpu.R[b];
-          Rc = cpu.R[c]; 
+          Rc = cpu.R[c];
           case (op)
             cpu.ST, cpu.SB, cpu.SH  :  dMemWriteEnd(); // 寫入記憶體完成
           endcase
@@ -362,15 +362,15 @@ module iMemAccess(input clock, reset, iReady, output reg iGet, oReady, input oGe
           state = `WAIT_ACK; // 進入等待狀態
           $display("%-4d:decode, pc0=%x pc=%x ir=%x op=%x a=%x b=%x c=%x cx12=%x", $stime, pc0, pc, ir, op, a, b, c, cx12);
         end
-        #1;                
+        #1;
       end
       `WAIT_ACK:begin // 等待回應 (資料被取走)
-        #1;                
+        #1;
         if (oGet) begin // 資料被取走了
           oReady = 0; // 下一筆輸出資料尚未準備好。
           state = `IDLE; // 回到閒置狀態，準備取得下一筆輸入資料
         end
-        #1;                
+        #1;
         iGet = 0;  // 下一筆輸入資料尚未準備好。
       end
     endcase
@@ -390,10 +390,10 @@ module iWriteBack(input clock, reset, iReady, output reg iGet, oReady, input oGe
   reg signed [31:0] c12, c16, c24, Ra, Rb, Rc; // ipc:instruction PC
 
   always @(posedge clock) begin
-    if (reset) begin oReady=0; iGet=0; state=`IDLE; end 
-    else case (state) 
+    if (reset) begin oReady=0; iGet=0; state=`IDLE; end
+    else case (state)
       `IDLE: begin // 閒置中
-        #1;                
+        #1;
         if (iReady && (!cpu.m_en1 || cpu.m_ack1)) begin // 輸入資料已準備好
           pc0 = cpu.im1.pc0;
           pc = cpu.im1.pc;
@@ -419,26 +419,26 @@ module iWriteBack(input clock, reset, iReady, output reg iGet, oReady, input oGe
           cpu.LD  : begin
             dMemReadEnd(Ra);
             if (`D)
-              $display("%4dns %8x : %8x m[%-04x+%-04x]=%8x  SW=%8x", $stime, pc0, 
+              $display("%4dns %8x : %8x m[%-04x+%-04x]=%8x  SW=%8x", $stime, pc0,
                        ir, Rb, c16, Ra, `SW);
           end
           endcase
           case (op)
-          cpu.LB  : begin 
+          cpu.LB  : begin
             if (Ra > 8'h7f) regSet(a, Ra|32'hffffff80);
           end
-          cpu.LH  : begin 
+          cpu.LH  : begin
             if (Ra > 16'h7fff) regSet(a, Ra|32'hffff8000);
           end
           endcase
           case (op)
           cpu.MULT, cpu.MULTu, cpu.DIV, cpu.DIVu, cpu.MTHI, cpu.MTLO :
             if (`D)
-              $display("%4dns %8x : %8x HI=%8x LO=%8x SW=%8x", $stime, pc0, ir, cpu.HI, 
+              $display("%4dns %8x : %8x HI=%8x LO=%8x SW=%8x", $stime, pc0, ir, cpu.HI,
                        cpu.LO, `SW);
           cpu.ST : begin
             if (`D)
-              $display("%4dns %8x : %8x m[%-04x+%-04x]=%8x  SW=%8x", $stime, pc0, 
+              $display("%4dns %8x : %8x m[%-04x+%-04x]=%8x  SW=%8x", $stime, pc0,
                        ir, Rb, c16, Ra, `SW);
             if (Rb+c16 == `IOADDR) begin
               outw(Ra);
@@ -446,7 +446,7 @@ module iWriteBack(input clock, reset, iReady, output reg iGet, oReady, input oGe
           end
           cpu.SB : begin
             if (`D)
-              $display("%4dns %8x : %8x m[%-04x+%-04x]=%c  SW=%8x, R[a]=%8x", 
+              $display("%4dns %8x : %8x m[%-04x+%-04x]=%c  SW=%8x, R[a]=%8x",
                        $stime, pc0, ir, Rb, c16, Ra[7:0], `SW, Ra);
             if (Rb+c16 == `IOADDR) begin
               if (`LE)
@@ -457,15 +457,15 @@ module iWriteBack(input clock, reset, iReady, output reg iGet, oReady, input oGe
           end
           cpu.MFC0, cpu.MTC0 :
             if (`D)
-              $display("%4dns %8x : %8x R[%02d]=%-8x  C0R[%02d]=%-8x SW=%8x", 
+              $display("%4dns %8x : %8x R[%02d]=%-8x  C0R[%02d]=%-8x SW=%8x",
                        $stime, pc0, ir, a, Ra, a, cpu.C0R[a], `SW);
           cpu.C0MOV :
             if (`D)
-              $display("%4dns %8x : %8x C0R[%02d]=%-8x C0R[%02d]=%-8x SW=%8x", 
+              $display("%4dns %8x : %8x C0R[%02d]=%-8x C0R[%02d]=%-8x SW=%8x",
                        $stime, pc0, ir, a, cpu.C0R[a], b, cpu.C0R[b], `SW);
           default :
             if (`D) // Display the written register content
-              $display("%4dns %8x : %8x R[%02d]=%-8x SW=%8x", $stime, pc0, ir, 
+              $display("%4dns %8x : %8x R[%02d]=%-8x SW=%8x", $stime, pc0, ir,
                        a, Ra, `SW);
           endcase
           if (`PC < 0) begin
@@ -478,15 +478,15 @@ module iWriteBack(input clock, reset, iReady, output reg iGet, oReady, input oGe
           state = `WAIT_ACK; // 進入等待狀態
           $display("%-4d:decode, pc0=%x pc=%x ir=%x op=%x a=%x b=%x c=%x cx12=%x", $stime, pc0, pc, ir, op, a, b, c, cx12);
         end
-        #1;                
+        #1;
       end
       `WAIT_ACK:begin // 等待回應 (資料被取走)
-        #1;                
+        #1;
         if (oGet) begin // 資料被取走了
             oReady = 0; // 下一筆輸出資料尚未準備好。
             state = `IDLE; // 回到閒置狀態，準備取得下一筆輸入資料
         end
-        #1;                
+        #1;
         iGet = 0;  // 下一筆輸入資料尚未準備好。
       end
     endcase
@@ -494,11 +494,11 @@ module iWriteBack(input clock, reset, iReady, output reg iGet, oReady, input oGe
 endmodule
 
 // Reference web: http://ccckmit.wikidot.com/ocs:cpu0
-module cpu0(input clock, reset, output reg [2:0] tick, 
-            output reg [31:0] ir, pc, 
-            output [31:0] mar1, mdr1, inout [31:0] dbus1, output reg m_en1, m_rw1, input m_ack1, output reg [1:0] m_size1, 
-            output [31:0] mar2, mdr2, inout [31:0] dbus2, output reg m_en2, m_rw2, input m_ack2, output reg [1:0] m_size2, 
-            input cfg);        
+module cpu0(input clock, reset, output reg [2:0] tick,
+            output reg [31:0] ir, pc,
+            output [31:0] mar1, mdr1, inout [31:0] dbus1, output reg m_en1, m_rw1, input m_ack1, output reg [1:0] m_size1,
+            output [31:0] mar2, mdr2, inout [31:0] dbus2, output reg m_en2, m_rw2, input m_ack2, output reg [1:0] m_size2,
+            input cfg);
  // 管線相關參數
   wire ifiGet, idiGet, ieiGet, iwiGet; // pipe 輸入是否準備好了
   wire ifoReady, idoReady, ieoReady, iwoReady; // pipe 輸出是否準備好了
@@ -515,7 +515,7 @@ module cpu0(input clock, reset, output reg [2:0] tick,
   reg [31:0] uc16, URa, URb, URc, HI, LO, CF, tmp;
   reg [63:0] cycles;
 
-  // Instruction Opcode 
+  // Instruction Opcode
   parameter [7:0] NOP=8'h00,LD=8'h01,ST=8'h02,LB=8'h03,LBu=8'h04,SB=8'h05,
   LH=8'h06,LHu=8'h07,SH=8'h08,ADDiu=8'h09,MOVZ=8'h0A,MOVN=8'h0B,ANDi=8'h0C,
   ORi=8'h0D,XORi=8'h0E,LUi=8'h0F,
@@ -536,9 +536,9 @@ module cpu0(input clock, reset, output reg [2:0] tick,
   MFC0=8'h50,MTC0=8'h51,C0MOV=8'h52;
 
   reg [0:0] inExe = 0;
-  reg [2:0] state, next_state; 
-  reg [2:0] st_taskInt, ns_taskInt; 
-  parameter Reset=3'h0, Fetch=3'h1, Decode=3'h2, Execute=3'h3, MemAccess=3'h4, 
+  reg [2:0] state, next_state;
+  reg [2:0] st_taskInt, ns_taskInt;
+  parameter Reset=3'h0, Fetch=3'h1, Decode=3'h2, Execute=3'h3, MemAccess=3'h4,
             WriteBack=3'h5;
   integer i;
 
@@ -548,9 +548,9 @@ module cpu0(input clock, reset, output reg [2:0] tick,
   end endtask
 
   // Read Memory Word
-  task iMemReadStart(input [31:0] addr, input [1:0] size); begin 
+  task iMemReadStart(input [31:0] addr, input [1:0] size); begin
     mar1 = addr;     // read(m[addr])
-    m_rw1 = 1;     // Access Mode: read 
+    m_rw1 = 1;     // Access Mode: read
     m_en1 = 1;     // Enable read
     m_size1 = size;
   end endtask
@@ -563,9 +563,9 @@ module cpu0(input clock, reset, output reg [2:0] tick,
   end endtask
 
   // Read Memory Word
-  task dMemReadStart(input [31:0] addr, input [1:0] size); begin 
+  task dMemReadStart(input [31:0] addr, input [1:0] size); begin
     mar2 = addr;     // read(m[addr])
-    m_rw2 = 1;     // Access Mode: read 
+    m_rw2 = 1;     // Access Mode: read
     m_en2 = 1;     // Enable read
     m_size2 = size;
   end endtask
@@ -578,8 +578,8 @@ module cpu0(input clock, reset, output reg [2:0] tick,
   end endtask
 
   // Write memory -- addr: address to write, data: date to write
-  task dMemWriteStart(input [31:0] addr, input [31:0] data, input [1:0] size); 
-  begin 
+  task dMemWriteStart(input [31:0] addr, input [31:0] data, input [1:0] size);
+  begin
     mar2 = addr;    // write(m[addr], data)
     mdr2 = data;
     m_rw2 = 0;    // access mode: write
@@ -608,14 +608,14 @@ module cpu0(input clock, reset, output reg [2:0] tick,
   task outw(input [31:0] data); begin
     if (`LE) begin // Little Endian
       changeEndian(data, data);
-    end 
+    end
     if (data[7:0] != 8'h00) begin
       $write("%c", data[7:0]);
-      if (data[15:8] != 8'h00) 
+      if (data[15:8] != 8'h00)
         $write("%c", data[15:8]);
-      if (data[23:16] != 8'h00) 
+      if (data[23:16] != 8'h00)
         $write("%c", data[23:16]);
-      if (data[31:24] != 8'h00) 
+      if (data[31:24] != 8'h00)
         $write("%c", data[31:24]);
     end
   end endtask
@@ -643,8 +643,8 @@ module cpu0(input clock, reset, output reg [2:0] tick,
   end
 endmodule
 
-module memory0(input clock, reset, en, rw, input [1:0] m_size, 
-               input [31:0] abus, dbus_in, output [31:0] dbus_out, 
+module memory0(input clock, reset, en, rw, input [1:0] m_size,
+               input [31:0] abus, dbus_in, output [31:0] dbus_out,
                output cfg);
   reg [31:0] mconfig [0:0];
   reg [7:0] m [0:`MEMSIZE-1];
@@ -684,7 +684,7 @@ module memory0(input clock, reset, en, rw, input [1:0] m_size,
     $readmemh("cpu0.hex", m);
   // display memory contents
     `ifdef TRACE
-      for (i=0; i < `MEMSIZE && (m[i] != `MEMEMPTY || m[i+1] != `MEMEMPTY || 
+      for (i=0; i < `MEMSIZE && (m[i] != `MEMEMPTY || m[i+1] != `MEMEMPTY ||
          m[i+2] != `MEMEMPTY || m[i+3] != `MEMEMPTY); i=i+4) begin
         $display("%8x: %8x", i, {m[i], m[i+1], m[i+2], m[i+3]});
       end
@@ -695,7 +695,7 @@ module memory0(input clock, reset, en, rw, input [1:0] m_size,
 `endif
   end
 
-  always @(clock or abus or en or rw or dbus_in) 
+  always @(clock or abus or en or rw or dbus_in)
   begin
     if (abus >= 0 && abus <= `MEMSIZE-4) begin
       if (en == 1 && rw == 0) begin // r_w==0:write
@@ -704,9 +704,9 @@ module memory0(input clock, reset, en, rw, input [1:0] m_size,
           case (m_size)
           `BYTE:  {m[abus]} = dbus_in[7:0];
           `INT16: {m[abus], m[abus+1] } = {dbus_in[7:0], dbus_in[15:8]};
-          `INT24: {m[abus], m[abus+1], m[abus+2]} = 
+          `INT24: {m[abus], m[abus+1], m[abus+2]} =
                   {dbus_in[7:0], dbus_in[15:8], dbus_in[23:16]};
-          `INT32: {m[abus], m[abus+1], m[abus+2], m[abus+3]} = 
+          `INT32: {m[abus], m[abus+1], m[abus+2], m[abus+3]} =
                   {dbus_in[7:0], dbus_in[15:8], dbus_in[23:16], dbus_in[31:24]};
           endcase
         end else begin // Big Endian
@@ -738,7 +738,7 @@ module memory0(input clock, reset, en, rw, input [1:0] m_size,
       `ifdef DLINKER
       `include "flashio.v"
       `endif
-    end else 
+    end else
       data = 32'hZZZZZZZZ;
   end
   assign dbus_out = data;
@@ -760,12 +760,12 @@ module main;
   .mar2(mar2), .mdr2(mdr2), .dbus2(dbus2), .m_en2(m_en2), .m_rw2(m_rw2), .m_size2(m_size2), .m_ack2(m_ack2),
   .cfg(cfg));
 
-  memory0 imem(.clock(clock), .reset(reset), .en(m_en1), .rw(m_rw1), 
+  memory0 imem(.clock(clock), .reset(reset), .en(m_en1), .rw(m_rw1),
   .m_size(m_size1), .abus(mar1), .dbus_in(mdr1), .dbus_out(dbus1), .cfg(cfg));
 
-  memory0 dmem(.clock(clock), .reset(reset), .en(m_en2), .rw(m_rw2), 
+  memory0 dmem(.clock(clock), .reset(reset), .en(m_en2), .rw(m_rw2),
   .m_size(m_size2), .abus(mar2), .dbus_in(mdr2), .dbus_out(dbus2), .cfg(cfg));
-  
+
   initial
   begin
     clock = 0;

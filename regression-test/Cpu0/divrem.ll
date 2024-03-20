@@ -45,4 +45,3 @@ entry:
   %div = udiv i32 %a0, %a1
   ret i32 %div
 }
-

@@ -26,4 +26,3 @@ entry:
   %shr = ashr i64 %a, %sh_prom
   ret i64 %shr
 }
-

@@ -31,8 +31,8 @@ namespace llvm {
 class Cpu0FunctionInfo : public MachineFunctionInfo {
 public:
   Cpu0FunctionInfo(MachineFunction& MF)
-  : MF(MF), 
-    VarArgsFrameIndex(0), 
+  : MF(MF),
+    VarArgsFrameIndex(0),
     SRetReturnReg(0), CallsEhReturn(false), CallsEhDwarf(false),
     GlobalBaseReg(0),
     InArgFIRange(std::make_pair(-1, 0)),
@@ -150,4 +150,3 @@ private:
 } // end of namespace llvm
 
 #endif // CPU0_MACHINE_FUNCTION_INFO_H
-

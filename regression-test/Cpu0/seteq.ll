@@ -24,4 +24,3 @@ entry:
 
   ret void
 }
-

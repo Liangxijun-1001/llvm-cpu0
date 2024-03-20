@@ -16,4 +16,3 @@ int test_tailcall(int a)
 {
   return factorial(a);
 }
-

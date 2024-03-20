@@ -12,4 +12,3 @@ define i32 @_Z17test_add_overflowv() #0 {
   %5 = add nsw i32 %3, %4
   ret i32 %5
 }
-

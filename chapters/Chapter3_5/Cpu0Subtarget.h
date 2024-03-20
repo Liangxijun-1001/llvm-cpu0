@@ -89,7 +89,7 @@ public:
   bool hasChapter8_2() const {
     return false;
   }
-  
+
   bool hasChapter9_1() const {
     return false;
   }
@@ -181,7 +181,7 @@ public:
   bool enableLongBranchPass() const {
     return hasCpu032II();
   }
-  
+
   unsigned stackAlignment() const { return 8; }
 
   Cpu0Subtarget &initializeSubtargetDependencies(StringRef CPU, StringRef FS,
@@ -207,4 +207,3 @@ public:
 } // End llvm namespace
 
 #endif // #if CH >= CH3_1
-

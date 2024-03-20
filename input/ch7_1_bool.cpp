@@ -11,4 +11,3 @@ bool test_load_bool()
 
   return true;
 }
-

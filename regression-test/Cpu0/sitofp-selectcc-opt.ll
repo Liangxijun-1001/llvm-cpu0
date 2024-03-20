@@ -19,4 +19,3 @@ entry:
   store double %add, double* @foo12.d4, align 8
   ret double %add
 }
-

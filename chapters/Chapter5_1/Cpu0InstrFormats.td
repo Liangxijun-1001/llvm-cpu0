@@ -37,7 +37,7 @@ def FrmOther  : Format<4>; // Instruction w/ a custom format
 class Cpu0Inst<dag outs, dag ins, string asmstr, list<dag> pattern,
                InstrItinClass itin, Format f>: Instruction
 {
-  // Inst and Size: for tablegen(... -gen-emitter) and 
+  // Inst and Size: for tablegen(... -gen-emitter) and
   // tablegen(... -gen-disassembler) in CMakeLists.txt
   field bits<32> Inst;
   Format Form = f;
@@ -132,4 +132,3 @@ class FJ<bits<8> op, dag outs, dag ins, string asmstr, list<dag> pattern,
 
   let Inst{23-0} = addr;
 }
-

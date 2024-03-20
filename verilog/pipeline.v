@@ -2,13 +2,13 @@
 `define WAIT 2'b1     // 等待回應
 
 // pipe : 單一根管子 (iReady, iMsg, iGet) 為輸入部分，(oReady, oMsg, oGet) 為輸出部分, id 為管線代號
-module pipe(input clock, reset, iReady, input [7:0] iMsg, output iGet, 
+module pipe(input clock, reset, iReady, input [7:0] iMsg, output iGet,
             output oReady, output [7:0] oMsg, input oGet, input [3:0] id);
 reg oReady, iGet, state;
 reg [7:0] iMsgReg, oMsg;
     always @(posedge clock) begin
-        if (reset) begin oReady=0; iGet=0; state=`IDLE; end 
-        else case (state) 
+        if (reset) begin oReady=0; iGet=0; state=`IDLE; end
+        else case (state)
             `IDLE: begin // 閒置中
                 if (iReady) begin // 輸入資料已準備好
                     iMsgReg <= iMsg; // 儲存輸入資料
@@ -18,7 +18,7 @@ reg [7:0] iMsgReg, oMsg;
                     #1 oMsg <= iMsg + 1; // 設定輸出資料
                     #2;
                     $display("%-8d:p%x oMsg=%d, oReady", $stime, id, oMsg);
-                end else 
+                end else
                     $display("%-8d:p%x IDLE, not iReady", $stime, id);
             end
             `WAIT:begin // 等待回應 (資料被取走)
@@ -63,4 +63,3 @@ always #10 begin
 end
 
 endmodule
-

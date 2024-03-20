@@ -109,4 +109,3 @@ entry:
 ; CHECK: st      $4, 16($sp)
 ; CHECK: addiu   ${{[0-9]+|t9}}, $sp, 32
 }
-

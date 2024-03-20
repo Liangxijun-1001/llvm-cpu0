@@ -33,7 +33,7 @@ using namespace llvm;
 #include "Cpu0GenAsmWriter.inc"
 
 void Cpu0InstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
-//- getRegisterName(RegNo) defined in Cpu0GenAsmWriter.inc which indicate in 
+//- getRegisterName(RegNo) defined in Cpu0GenAsmWriter.inc which indicate in
 //   Cpu0.td.
   OS << '$' << StringRef(getRegisterName(RegNo)).lower();
 }
@@ -45,7 +45,7 @@ void Cpu0InstPrinter::printInst(const MCInst *MI, uint64_t Address,
   // Try to print any aliases first.
   if (!printAliasInstr(MI, Address, O))
 //@1 }
-    //- printInstruction(MI, O) defined in Cpu0GenAsmWriter.inc which came from 
+    //- printInstruction(MI, O) defined in Cpu0GenAsmWriter.inc which came from
     //   Cpu0.td indicate.
     printInstruction(MI, Address, O);
   printAnnotation(O, Annot);

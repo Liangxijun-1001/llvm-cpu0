@@ -86,4 +86,3 @@ entry:
   %add14 = add nsw i32 %add13, %17
   ret i32 %add14
 }
-

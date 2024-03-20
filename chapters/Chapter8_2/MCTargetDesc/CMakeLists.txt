@@ -18,4 +18,3 @@ add_llvm_component_library(LLVMCpu0Desc
   ADD_TO_COMPONENT
   Cpu0
   )
-

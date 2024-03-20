@@ -12,7 +12,7 @@ long long test_longlong_shift1()
   long long b = 0x12;
   long long c;
   long long d;
-  
+
   c = (b >> a);  // cc = 0x1
   d = (b << a);  // cc = 0x120
 
@@ -25,9 +25,8 @@ long long test_longlong_shift2()
   long long a = 48;
   long long b = 0x001666660000000a;
   long long c;
-  
+
   c = (b >> a);
 
   return c; // 22
 }
-

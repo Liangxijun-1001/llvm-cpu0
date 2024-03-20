@@ -24,4 +24,3 @@ entry:
   store i32 0, i32* %retval
   ret i32 0
 }
-

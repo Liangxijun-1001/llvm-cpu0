@@ -6,9 +6,8 @@ long long test_longlong()
 {
   long long a = 0x300000002;
   long long b = 0x100000001;
-  
+
   long long c = a + b;   // c = 0x00000004,00000003
 
   return c; // c = 0x00000004,00000003
 }
-

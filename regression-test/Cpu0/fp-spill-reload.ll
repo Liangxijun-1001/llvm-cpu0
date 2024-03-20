@@ -1,5 +1,5 @@
 ; RUN: llc -march=cpu0el < %s | FileCheck %s
-; check that $fp is not reserved. 
+; check that $fp is not reserved.
 
 define void @foo0(i32* nocapture %b) nounwind {
 entry:
@@ -36,4 +36,3 @@ entry:
 declare void @foo2(i32, i32, i32, i32, i32, i32, i32, i32)
 
 declare void @foo1(...)
-

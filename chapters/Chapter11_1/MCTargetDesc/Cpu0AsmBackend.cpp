@@ -175,4 +175,3 @@ MCAsmBackend *llvm::createCpu0AsmBackend(const Target &T,
                                          const MCTargetOptions &Options) {
   return new Cpu0AsmBackend(T, STI.getTargetTriple());
 }
-

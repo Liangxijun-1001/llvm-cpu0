@@ -8,7 +8,7 @@ long long test_longlong()
   long long b = 0x100000001;
   int a1 = 0x3001000;
   int b1 = 0x2001000;
-  
+
   long long c = a + b;   // c = 0x00000004,00000003
   long long d = a - b;   // d = 0x00000002,00000001
   long long e = a * b;   // e = 0x00000005,00000002
@@ -18,4 +18,3 @@ long long test_longlong()
 
   return (c+d+e+f+g); // (0x0006005b,01000002) = (393307,16777218)
 }
-

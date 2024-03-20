@@ -18,4 +18,3 @@ entry:
   store i32 %dummy, i32* %2, align 4
   ret void
 }
-

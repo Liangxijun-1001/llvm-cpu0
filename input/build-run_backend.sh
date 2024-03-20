@@ -19,7 +19,7 @@ echo ${DEFFLAGS}
 
 prologue;
 
-# ch8_2_select_global_pic.cpp just for compile build test only, without running 
+# ch8_2_select_global_pic.cpp just for compile build test only, without running
 # on verilog.
 $CLANG ${DEFFLAGS} -target mips-unknown-linux-gnu -c ch8_2_select_global_pic.cpp \
 -emit-llvm -o ch8_2_select_global_pic.bc

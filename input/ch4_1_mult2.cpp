@@ -8,6 +8,6 @@ int test_mult()
   int a = 12;
 
   b = (b+1)%a;
-  
+
   return b;
 }

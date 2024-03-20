@@ -11,5 +11,3 @@ be run directly without build the clang/llvm.
     $ ~/llvm-installed/bin/llvm-lit addc.ll -a
     $ ~/llvm-installed/bin/llvm-lit .
     ~/test/llvm/clang/test/CodeGen/Cpu0$ ~/riscv/riscv_newlib/bin/llvm-lit . -a
-
-

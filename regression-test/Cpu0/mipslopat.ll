@@ -1,5 +1,5 @@
-; This test does not check the machine code output.   
-; RUN: llc -march=cpu0 < %s 
+; This test does not check the machine code output.
+; RUN: llc -march=cpu0 < %s
 
 @stat_vol_ptr_int = internal global i32* null, align 4
 @stat_ptr_vol_int = internal global i32* null, align 4
@@ -16,4 +16,3 @@ entry:
 }
 
 declare void @llvm.prefetch(i8* nocapture, i32, i32, i32) nounwind
-

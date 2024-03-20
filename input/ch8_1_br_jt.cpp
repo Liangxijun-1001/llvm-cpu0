@@ -6,7 +6,7 @@
 
 /// start
 
-// This program test IR br_jt and JumpTable. It will generate JTI symbol 
+// This program test IR br_jt and JumpTable. It will generate JTI symbol
 // reference (global variable) as the following. So, need lld support.
 //	lui	$3, %hi($JTI0_0)
 //	ori	$3, $3, %lo($JTI0_0)
@@ -51,4 +51,3 @@ int test_ctrl2()
   }
   return (int)Result;
 }
-

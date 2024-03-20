@@ -41,7 +41,7 @@ namespace Cpu0 {
     // Symbol fixup resulting in - R_CPU0_GOT16.
     fixup_Cpu0_GOT,
 
-    
+
 
     // resulting in - R_CPU0_GOT_HI16
     fixup_Cpu0_GOT_HI16,
@@ -58,4 +58,3 @@ namespace Cpu0 {
 } // namespace llvm
 
 #endif // LLVM_CPU0_CPU0FIXUPKINDS_H
-

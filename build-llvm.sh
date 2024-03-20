@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+###
+ # @Author: Liangnus
+ # @Date: 2024-03-18 05:42:50
+ # @LastEditTime: 2024-03-19 23:40:08
+ # @LastEditors: Liangnus
+ # @Description: 编译llvm core + clang
+ # @FilePath: /llvm-cpu0/build-llvm.sh
+###
 
 # If your memory is large enough, add swap size ubuntu as follows,
 # 1. search "add swap size ubuntu"
@@ -7,7 +15,7 @@
 # https://linuxize.com/post/how-to-add-swap-space-on-ubuntu-18-04/
 # 4. reboot
 
-ROOT_DIR=/home1/liangnus/learning/xiaoyu1998/llvm-cpu0
+ROOT_DIR=$(pwd)
 
 TUTORIAL_DIR=${ROOT_DIR}/tutorial
 LLVM_PROJECT_DIR=${TUTORIAL_DIR}/llvm-project
@@ -34,6 +42,7 @@ build_llvm()
     pushd ${LLVM_PROJECT_DIR}/build
     OS=`uname -s`
     echo "OS =" ${OS}
+    # 在编译LLVM源代码时，需要编译出前端编译工具clang，所以需要打开clang工程
     cmake -DCMAKE_BUILD_TYPE=Debug -DLLVM_ENABLE_PROJECTS="clang" \
     -DLLVM_OPTIMIZED_TABLEGEN=On \
     -DLLVM_PARALLEL_COMPILE_JOBS=16 -DLLVM_PARALLEL_LINK_JOBS=2 -G "Ninja" ../llvm

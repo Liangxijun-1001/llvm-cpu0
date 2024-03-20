@@ -30,12 +30,12 @@ entry:
 ;int main()
 ;{
 ;  int i;
-; 
+;
 ;  // The first word. Notice, no 'D'
 ;  { asm (
 ;    "lw    %0,%1;\n"
 ;    : "=r" (i) : "m" (*(b+4)));}
-; 
+;
 ;  // The second word
 ;  { asm (
 ;    "lw    %0,%D1;\n"
@@ -51,4 +51,3 @@ entry:
 }
 
 attributes #0 = { nounwind }
-

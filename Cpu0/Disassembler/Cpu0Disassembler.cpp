@@ -67,8 +67,8 @@ public:
 // Decoder tables for GPR register
 static const unsigned CPURegsTable[] = {
   Cpu0::ZERO, Cpu0::AT, Cpu0::V0, Cpu0::V1,
-  Cpu0::A0, Cpu0::A1, Cpu0::T9, Cpu0::T0, 
-  Cpu0::T1, Cpu0::S0, Cpu0::S1, Cpu0::GP, 
+  Cpu0::A0, Cpu0::A1, Cpu0::T9, Cpu0::T0,
+  Cpu0::T1, Cpu0::S0, Cpu0::S1, Cpu0::GP,
   Cpu0::FP, Cpu0::SP, Cpu0::LR, Cpu0::SW
 };
 
@@ -273,8 +273,8 @@ static DecodeStatus DecodeBranch16Target(MCInst &Inst,
   return MCDisassembler::Success;
 }
 
-/* CBranch instruction define $ra and then imm24; The printOperand() print 
-operand 1 (operand 0 is $ra and operand 1 is imm24), so we Create register 
+/* CBranch instruction define $ra and then imm24; The printOperand() print
+operand 1 (operand 0 is $ra and operand 1 is imm24), so we Create register
 operand first and create imm24 next, as follows,
 
 // Cpu0InstrInfo.td
@@ -289,7 +289,7 @@ void Cpu0InstPrinter::printInstruction(const MCInst *MI, raw_ostream &O) {
 ...
   case 3:
     // CMP, JEQ, JGE, JGT, JLE, JLT, JNE
-    printOperand(MI, 1, O); 
+    printOperand(MI, 1, O);
     break;
 */
 static DecodeStatus DecodeBranch24Target(MCInst &Inst,

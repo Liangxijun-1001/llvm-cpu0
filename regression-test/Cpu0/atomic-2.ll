@@ -39,4 +39,3 @@ entry:
   %tmp = load atomic i64, i64* %mem acquire, align 64
   ret i64 %tmp
 }
-

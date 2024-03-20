@@ -7,13 +7,13 @@
 long long sum_longlong(long long x1, long long x2, long long x3, long long x4, long long x5, long long x6)
 {
   long long sum = x1 + x2 + x3 + x4 + x5 + x6;
-  
-  return sum; 
+
+  return sum;
 }
 
 int test_sum_longlong()
-{ 
-  long long a = sum_longlong(1, 2, 3, 4, 5, -6);  
-  
+{
+  long long a = sum_longlong(1, 2, 3, 4, 5, -6);
+
   return (int)a; // 9
 }

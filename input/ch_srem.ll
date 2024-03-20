@@ -5,4 +5,3 @@ entry:
   %rem = srem i32 %b, 12
   ret i32 %rem
 }
-

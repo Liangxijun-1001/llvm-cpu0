@@ -96,4 +96,3 @@ cond.end14:                                       ; preds = %cond.false13, %cond
 ; cpu032I:  jlt $sw
 ; cpu032II:  slt $[[T0:[0-9]+|t9]], ${{[0-9]+|t9}}, ${{[0-9]+|t9}}
 ; cpu032II:  bne $[[T0]], $zero
-

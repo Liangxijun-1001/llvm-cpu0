@@ -26,5 +26,3 @@ entry:
 ; CHECK_ADDIU: 	addiu	${{[0-9]+|t9}}, ${{[0-9]+|t9}}, -10000
   ret void
 }
-
-

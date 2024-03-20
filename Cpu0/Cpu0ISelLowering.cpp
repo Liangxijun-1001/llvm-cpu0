@@ -200,12 +200,12 @@ Cpu0TargetLowering::Cpu0TargetLowering(const Cpu0TargetMachine &TM,
   setOperationAction(ISD::DYNAMIC_STACKALLOC, MVT::i32,  Expand);
 
   //@vararg 1 {
-  // Support va_arg(): variable numbers (not fixed numbers) of arguments 
+  // Support va_arg(): variable numbers (not fixed numbers) of arguments
   //  (parameters) for function all
   setOperationAction(ISD::VAARG,             MVT::Other, Expand);
   setOperationAction(ISD::VACOPY,            MVT::Other, Expand);
   setOperationAction(ISD::VAEND,             MVT::Other, Expand);
-  
+
   //@llvm.stacksave
   // Use the default for now
   setOperationAction(ISD::STACKSAVE,         MVT::Other, Expand);
@@ -961,11 +961,11 @@ SDValue Cpu0TargetLowering::lowerGlobalAddress(SDValue Op,
   const GlobalObject *GO = GV->getBaseObject();
   if (GO && !TLOF->IsGlobalInSmallSection(GO, getTargetMachine()))
     return getAddrGlobalLargeGOT(
-        N, Ty, DAG, Cpu0II::MO_GOT_HI16, Cpu0II::MO_GOT_LO16, 
-        DAG.getEntryNode(), 
+        N, Ty, DAG, Cpu0II::MO_GOT_HI16, Cpu0II::MO_GOT_LO16,
+        DAG.getEntryNode(),
         MachinePointerInfo::getGOT(DAG.getMachineFunction()));
   return getAddrGlobal(
-      N, Ty, DAG, Cpu0II::MO_GOT, DAG.getEntryNode(), 
+      N, Ty, DAG, Cpu0II::MO_GOT, DAG.getEntryNode(),
       MachinePointerInfo::getGOT(DAG.getMachineFunction()));
 }
 #endif
@@ -1351,7 +1351,7 @@ getOpndList(SmallVectorImpl<SDValue> &Ops,
 
   // Add a register mask operand representing the call-preserved registers.
   const TargetRegisterInfo *TRI = Subtarget.getRegisterInfo();
-  const uint32_t *Mask = 
+  const uint32_t *Mask =
       TRI->getCallPreservedMask(CLI.DAG.getMachineFunction(), CLI.CallConv);
   assert(Mask && "Missing call preserved mask for calling convention");
   Ops.push_back(CLI.DAG.getRegisterMask(Mask));
@@ -1393,7 +1393,7 @@ Cpu0TargetLowering::LowerCall(TargetLowering::CallLoweringInfo &CLI,
                  ArgLocs, *DAG.getContext());
   Cpu0CC::SpecialCallingConvType SpecialCallingConv =
     getSpecialCallingConv(Callee);
-  Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(), 
+  Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(),
                     CCInfo, SpecialCallingConv);
 
   Cpu0CCInfo.analyzeCallOperands(Outs, IsVarArg,
@@ -1595,7 +1595,7 @@ Cpu0TargetLowering::LowerCallResult(SDValue Chain, SDValue InFlag,
   SmallVector<CCValAssign, 16> RVLocs;
   CCState CCInfo(CallConv, IsVarArg, DAG.getMachineFunction(),
 		 RVLocs, *DAG.getContext());
-		 
+
   Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(), CCInfo);
 
   Cpu0CCInfo.analyzeCallResult(Ins, Subtarget.abiUsesSoftFloat(),
@@ -1645,7 +1645,7 @@ Cpu0TargetLowering::LowerFormalArguments(SDValue Chain,
   SmallVector<CCValAssign, 16> ArgLocs;
   CCState CCInfo(CallConv, IsVarArg, DAG.getMachineFunction(),
                  ArgLocs, *DAG.getContext());
-  Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(), 
+  Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(),
                     CCInfo);
 #endif
 
@@ -1813,7 +1813,7 @@ Cpu0TargetLowering::LowerReturn(SDValue Chain,
   // CCState - Info about the registers and stack slot.
   CCState CCInfo(CallConv, IsVarArg, MF, RVLocs,
                  *DAG.getContext());
-  Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(), 
+  Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(),
                     CCInfo);
 
   // Analyze return values.
@@ -1882,7 +1882,7 @@ Cpu0TargetLowering::LowerReturn(SDValue Chain,
 
 /// getConstraintType - Given a constraint letter, return the type of
 /// constraint it is for this target.
-Cpu0TargetLowering::ConstraintType 
+Cpu0TargetLowering::ConstraintType
 Cpu0TargetLowering::getConstraintType(StringRef Constraint) const
 {
   // Cpu0 specific constraints

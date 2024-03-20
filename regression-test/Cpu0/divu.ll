@@ -14,5 +14,3 @@ entry:
   store i32 %div, i32* @kkkk, align 4
   ret void
 }
-
-

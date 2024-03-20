@@ -27,4 +27,3 @@ define i32 @_Z9test_mathv() #0 {
 
   ret i32 %19
 }
-

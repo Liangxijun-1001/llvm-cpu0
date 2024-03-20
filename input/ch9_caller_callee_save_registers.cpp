@@ -6,10 +6,10 @@
 extern int add1(int x);
 
 int callee()
-{ 
+{
   int t1 = 3;
-  int result = add1(t1);  
+  int result = add1(t1);
   result = result - t1;
-  
+
   return result;
 }

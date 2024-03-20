@@ -19,5 +19,3 @@ entry:
   store i32 %rem, i32* @llll, align 4
   ret void
 }
-
-

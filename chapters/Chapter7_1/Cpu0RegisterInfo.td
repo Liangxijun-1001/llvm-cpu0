@@ -15,7 +15,7 @@
 class Cpu0Reg<bits<16> Enc, string n> : Register<n> {
   // For tablegen(... -gen-emitter)  in CMakeLists.txt
   let HWEncoding = Enc;
-  
+
   let Namespace = "Cpu0";
 }
 
@@ -64,15 +64,15 @@ let Namespace = "Cpu0" in {
 
 def CPURegs : RegisterClass<"Cpu0", [i32], 32, (add
   // Reserved
-  ZERO, AT, 
+  ZERO, AT,
   // Return Values and Arguments
-  V0, V1, A0, A1, 
+  V0, V1, A0, A1,
   // Not preserved across procedure calls
   T9, T0, T1,
   // Callee save
   S0, S1,
   // Reserved
-  GP, FP, 
+  GP, FP,
   SP, LR, SW)>;
 
 // Hi/Lo Registers class
@@ -83,4 +83,3 @@ def SR     : RegisterClass<"Cpu0", [i32], 32, (add SW)>;
 
 //@Co-processor 0 Registers class
 def C0Regs : RegisterClass<"Cpu0", [i32], 32, (add PC, EPC)>;
-

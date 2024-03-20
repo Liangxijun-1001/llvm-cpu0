@@ -164,4 +164,3 @@ bool Cpu0PassConfig::addInstSelector() {
   addPass(createCpu0SEISelDag(getCpu0TargetMachine(), getOptLevel()));
   return false;
 }
-

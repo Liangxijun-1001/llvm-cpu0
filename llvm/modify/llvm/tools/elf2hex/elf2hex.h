@@ -33,20 +33,20 @@ using namespace object;
 
 class HexOut {
 public:
-  virtual void ProcessDisAsmInstruction(MCInst inst, uint64_t Size, 
+  virtual void ProcessDisAsmInstruction(MCInst inst, uint64_t Size,
                                 ArrayRef<uint8_t> Bytes, const ObjectFile *Obj) = 0;
   virtual void ProcessDataSection(SectionRef Section) {};
   virtual ~HexOut() {};
 };
 
-// Split HexOut from Reader::DisassembleObject() for separating hex output 
+// Split HexOut from Reader::DisassembleObject() for separating hex output
 // functions.
 class VerilogHex : public HexOut {
 public:
-  VerilogHex(std::unique_ptr<MCInstPrinter>& instructionPointer, 
+  VerilogHex(std::unique_ptr<MCInstPrinter>& instructionPointer,
              std::unique_ptr<const MCSubtargetInfo>& subTargetInfo,
              const ObjectFile *Obj);
-  void ProcessDisAsmInstruction(MCInst inst, uint64_t Size, 
+  void ProcessDisAsmInstruction(MCInst inst, uint64_t Size,
                                 ArrayRef<uint8_t> Bytes, const ObjectFile *Obj) override;
   void ProcessDataSection(SectionRef Section) override;
 
@@ -63,9 +63,9 @@ private:
 
 class Reader {
 public:
-  void DisassembleObject(const ObjectFile *Obj, 
-                         std::unique_ptr<MCDisassembler>& DisAsm, 
-                         std::unique_ptr<MCInstPrinter>& IP, 
+  void DisassembleObject(const ObjectFile *Obj,
+                         std::unique_ptr<MCDisassembler>& DisAsm,
+                         std::unique_ptr<MCInstPrinter>& IP,
                          std::unique_ptr<const MCSubtargetInfo>& STI);
   StringRef CurrentSymbol();
   SectionRef CurrentSection();

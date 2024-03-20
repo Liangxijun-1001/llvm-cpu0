@@ -12,4 +12,3 @@ int foo4(void) {
 int main() {
   return foo1();
 }
-

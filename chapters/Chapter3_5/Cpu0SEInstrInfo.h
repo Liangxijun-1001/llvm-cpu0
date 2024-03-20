@@ -60,10 +60,9 @@ public:
 private:
   void expandRetLR(MachineBasicBlock &MBB, MachineBasicBlock::iterator I) const;
 
-  
+
 };
 
 }
 
 #endif
-

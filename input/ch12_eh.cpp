@@ -21,4 +21,3 @@ int test_try_catch() {
   }
   return 0;
 }
-

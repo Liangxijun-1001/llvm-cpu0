@@ -28,7 +28,7 @@
 
 using namespace llvm;
 
-//- emitPrologue() and emitEpilogue must exist for main(). 
+//- emitPrologue() and emitEpilogue must exist for main().
 
 //===----------------------------------------------------------------------===//
 //
@@ -98,4 +98,3 @@ bool Cpu0FrameLowering::hasFP(const MachineFunction &MF) const {
       MFI.hasVarSizedObjects() || MFI.isFrameAddressTaken() ||
       TRI->needsStackRealignment(MF);
 }
-

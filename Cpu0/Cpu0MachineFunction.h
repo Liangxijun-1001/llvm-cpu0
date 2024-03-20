@@ -32,8 +32,8 @@ namespace llvm {
 class Cpu0FunctionInfo : public MachineFunctionInfo {
 public:
   Cpu0FunctionInfo(MachineFunction& MF)
-  : MF(MF), 
-    VarArgsFrameIndex(0), 
+  : MF(MF),
+    VarArgsFrameIndex(0),
 #if CH >= CH3_4 //1
     SRetReturnReg(0), CallsEhReturn(false), CallsEhDwarf(false),
 #endif
@@ -195,4 +195,3 @@ private:
 #endif // #if CH >= CH3_1
 
 #endif // CPU0_MACHINE_FUNCTION_INFO_H
-

@@ -13,11 +13,11 @@ $_ZTI3Ex1 = comdat any
 @_ZTS3Ex1 = linkonce_odr dso_local constant [5 x i8] c"3Ex1\00", comdat, align 1
 @_ZTI3Ex1 = linkonce_odr dso_local constant { i8*, i8* } { i8* bitcast (i8** get
 elementptr inbounds (i8*, i8** @_ZTVN10__cxxabiv117__class_type_infoE, i32 2) to
- i8*), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @_ZTS3Ex1, i32 0, i32 0) 
+ i8*), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @_ZTS3Ex1, i32 0, i32 0)
 }, comdat, align 4
 
 ; Function Attrs: noinline optnone mustprogress
-define dso_local void @_Z15throw_exceptionii(i32 signext %a, i32 signext %b) #0 
+define dso_local void @_Z15throw_exceptionii(i32 signext %a, i32 signext %b) #0
 {
 entry:
   %a.addr = alloca i32, align 4

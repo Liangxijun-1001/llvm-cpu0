@@ -7,9 +7,9 @@ entry:
 ; CHECK: cmp
 ; CHECK: andi
 ; CHECK: addu
-; cpu032II: sltu 
+; cpu032II: sltu
 ; cpu032II: addu
-  %tmp2 = add i64 %u, %v  
+  %tmp2 = add i64 %u, %v
   ret i64 %tmp2
 }
 
@@ -19,7 +19,7 @@ entry:
 ; CHECK: andi
 ; CHECK: subu
 ; CHECK: subu
-; cpu032II: sltu 
+; cpu032II: sltu
 ; cpu032II: subu
   %tmp2 = sub i64 %u, %v
   ret i64 %tmp2

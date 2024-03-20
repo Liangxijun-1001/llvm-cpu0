@@ -43,7 +43,7 @@ blockaddr.ll                              x                   Not C/C++ language
 2010-04-07-DbgValueOtherTargets.ll        x                   Mips cannot pass either ?
 2010-07-20-Switch.ll                      x                   Cpu0 fail: LLVM ERROR: Cannot select: 0x7fb4d182fe20: i32 = GLOBAL_OFFSET_TABLE [ID=3]
 eh-dwraf-cfa.ll                           x
-eh-return32.ll                            x                   What is the IR of llvm.eh.return.i32? (not from c++ try & catch). 
+eh-return32.ll                            x                   What is the IR of llvm.eh.return.i32? (not from c++ try & catch).
 eh-return64.ll                            x                   Same as above.
 fastcc.ll                                 x                   Fast Call. No need in Cpu0
 frame-address.ll                          x                   Not support @llvm.frameaddress intrinsic function.
@@ -51,4 +51,3 @@ init-array.ll                             x                   Don't know the pur
 longbranch.ll                             x                   Not support and not intend to support.
 tls-alias.ll                              x                   Mips 3.5 cannot pass either.
 vector-setcc.ll                           x                   Not support vector.
-

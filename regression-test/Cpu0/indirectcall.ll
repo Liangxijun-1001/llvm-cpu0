@@ -1,4 +1,4 @@
-; RUN: llc  < %s -march=cpu0el -relocation-model=static | FileCheck %s 
+; RUN: llc  < %s -march=cpu0el -relocation-model=static | FileCheck %s
 
 define void @foo0(void (i32)* nocapture %f1) nounwind {
 entry:

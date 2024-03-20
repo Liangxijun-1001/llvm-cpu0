@@ -35,4 +35,3 @@ const Cpu0RegisterInfo &Cpu0SEInstrInfo::getRegisterInfo() const {
 const Cpu0InstrInfo *llvm::createCpu0SEInstrInfo(const Cpu0Subtarget &STI) {
   return new Cpu0SEInstrInfo(STI);
 }
-

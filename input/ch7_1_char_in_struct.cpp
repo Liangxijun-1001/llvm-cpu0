@@ -25,4 +25,3 @@ int test_char()
 
   return 0;
 }
-

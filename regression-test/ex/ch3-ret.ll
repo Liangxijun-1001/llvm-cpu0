@@ -14,4 +14,3 @@ entry:
 ; CHECK: ret $lr
   ret void
 }
-

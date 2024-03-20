@@ -23,4 +23,3 @@ bool FixGlobalBaseReg;
 Cpu0FunctionInfo::~Cpu0FunctionInfo() {}
 
 void Cpu0FunctionInfo::anchor() { }
-

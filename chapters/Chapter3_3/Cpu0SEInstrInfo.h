@@ -30,10 +30,9 @@ public:
 
   const Cpu0RegisterInfo &getRegisterInfo() const override;
 
-  
+
 };
 
 }
 
 #endif
-

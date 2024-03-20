@@ -21,4 +21,3 @@ int test_struct()
 
   return (i+day); // 10+12=22
 }
-

@@ -65,4 +65,3 @@ entry:
   %retval = alloca i8, i32 2415951872, align 4
   ret i32 0
 }
-

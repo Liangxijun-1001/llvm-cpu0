@@ -38,4 +38,3 @@ for.inc9:
 for.end11:
   ret i32 %add7
 }
-

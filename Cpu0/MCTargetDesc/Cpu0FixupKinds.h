@@ -51,7 +51,7 @@ namespace Cpu0 {
     // cpu0 PC24, e.g. jeq, jmp
     fixup_Cpu0_PC24,
 #endif
-    
+
 #if CH >= CH9_1
     // resulting in - R_CPU0_CALL16.
     fixup_Cpu0_CALL16,

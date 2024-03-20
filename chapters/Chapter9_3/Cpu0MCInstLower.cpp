@@ -59,7 +59,7 @@ MCOperand Cpu0MCInstLower::LowerSymbolOperand(const MachineOperand &MO,
   case Cpu0II::MO_GOT:
     TargetKind = Cpu0MCExpr::CEK_GOT;
     break;
-// ABS_HI and ABS_LO is for llc -march=cpu0 -relocation-model=static (global 
+// ABS_HI and ABS_LO is for llc -march=cpu0 -relocation-model=static (global
 //  var in .data).
   case Cpu0II::MO_ABS_HI:
     TargetKind = Cpu0MCExpr::CEK_ABS_HI;
@@ -278,4 +278,3 @@ void Cpu0MCInstLower::Lower(const MachineInstr *MI, MCInst &OutMI) const {
       OutMI.addOperand(MCOp);
   }
 }
-

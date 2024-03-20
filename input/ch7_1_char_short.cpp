@@ -39,4 +39,3 @@ int test_unsigned_short()
 
   return (int)ui;
 }
-

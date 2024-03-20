@@ -354,7 +354,7 @@ void memory_checks(_Atomic(int) *Ap, int *p, int val) {
   (void)__c11_atomic_fetch_add(Ap, 1, memory_order_acq_rel);
   (void)__c11_atomic_fetch_add(Ap, 1, memory_order_seq_cst);
 
-#ifdef WANT_COMPILE_FAIL // fail to compile: 
+#ifdef WANT_COMPILE_FAIL // fail to compile:
   (void)__c11_atomic_fetch_add(
       (struct Incomplete * _Atomic *)0, // expected-error {{incomplete type 'struct Incomplete'}}
       1, memory_order_seq_cst);

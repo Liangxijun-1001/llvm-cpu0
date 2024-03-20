@@ -244,4 +244,3 @@ declare { double, double } @dc_df_df(double, double)
 
 ; 1:	ld	$t9, %call16(dc_df_df)($gp)
 ; 1:	jalr	$t9
-

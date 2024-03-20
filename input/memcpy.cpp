@@ -6,4 +6,3 @@ void memcpy(char* dest, char* source, int size)
 {
   return;
 }
-

@@ -55,4 +55,3 @@ declare void @__cxa_throw(i8*, i8*, i8*)
 declare i8* @__cxa_begin_catch(i8*)
 
 declare void @__cxa_end_catch()
-

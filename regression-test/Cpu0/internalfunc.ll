@@ -17,7 +17,7 @@ entry:
   %tobool = icmp eq i32 %a1, 0
   br i1 %tobool, label %if.end, label %if.then
 
-if.then:         
+if.then:
 ; CHECK: ld  $[[R1:[0-9]+|t9]], %got(caller.sf1)
 ; CHECK: ori  $[[R2:[0-9]+|t9]], $[[R1]], %lo(caller.sf1)
 ; CHECK: ld  $t9, {{[0-9]+|t9}}($[[R2]])
@@ -52,4 +52,3 @@ entry:
   %call = tail call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i32 0, i32 0)) nounwind
   ret void
 }
-

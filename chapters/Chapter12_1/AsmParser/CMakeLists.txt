@@ -11,4 +11,3 @@ add_llvm_component_library(LLVMCpu0AsmParser
   ADD_TO_COMPONENT
   Cpu0
   )
-

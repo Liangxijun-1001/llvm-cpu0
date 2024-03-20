@@ -101,7 +101,7 @@ def immSExt16  : PatLeaf<(imm), [{ return isInt<16>(N->getSExtValue()); }]>;
 
 // Cpu0 Address Mode! SDNode frameindex could possibily be a match
 // since load and store instructions from stack used it.
-def addr : 
+def addr :
   ComplexPattern<iPTR, 2, "SelectAddr", [frameindex], [SDNPWantParent]>;
 
 //===----------------------------------------------------------------------===//
@@ -194,7 +194,7 @@ class RetBase<RegisterClass RC>: JumpFR<0x3c, "ret", RC> {
   let hasExtraSrcRegAllocReq = 1;
 }
 
-  
+
 //===----------------------------------------------------------------------===//
 // Instruction definition
 //===----------------------------------------------------------------------===//
@@ -236,4 +236,3 @@ let addr=0 in
 // Small immediates
 def : Pat<(i32 immSExt16:$in),
           (ADDiu ZERO, imm:$in)>;
-

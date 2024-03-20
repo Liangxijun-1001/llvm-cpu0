@@ -29,4 +29,3 @@ entry:
 ; CHECK:        move     $fp, $sp
 ; CHECK:        addu    $2, $fp, $fp
 }
-

@@ -55,4 +55,3 @@ entry:
 }
 
 declare void @foo1(i32)
-

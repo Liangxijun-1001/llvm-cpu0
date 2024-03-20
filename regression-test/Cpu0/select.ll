@@ -144,4 +144,3 @@ entry:
   %cond = select i1 %cmp, i32 %f0, i32 %f1
   ret i32 %cond
 }
-

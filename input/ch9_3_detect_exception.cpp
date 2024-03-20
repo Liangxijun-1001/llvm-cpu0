@@ -17,7 +17,7 @@ void exception_handler() {
   __builtin_eh_return(0, returnAddr); // no warning, eh_return never returns.
 }
 
-__attribute__ ((weak)) 
+__attribute__ ((weak))
 int test_detect_exception(bool exception) {
   exceptionOccur = false;
   void* handler = (void*)(&exception_handler);
@@ -29,4 +29,3 @@ int test_detect_exception(bool exception) {
     return 0;
   }
 }
-

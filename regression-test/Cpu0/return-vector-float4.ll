@@ -9,4 +9,3 @@ entry:
 
   ret <4 x float> <float 1.000000e+00, float 2.000000e+00, float 3.000000e+00, float 4.000000e+00>
 }
-

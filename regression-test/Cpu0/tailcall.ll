@@ -194,4 +194,3 @@ entry:
   %call = tail call i32 (i32, ...) @callee13(i32 1, i32 2) nounwind
   ret i32 %call
 }
-

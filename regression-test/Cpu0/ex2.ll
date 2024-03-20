@@ -6,7 +6,7 @@
 define i32 @main() {
 ; 16: main:
 ; 16: 	.cfi_startproc
-; 16: 	st	$lr, 
+; 16: 	st	$lr,
 ; 16:   .cfi_offset 14, -4
 ; 16: 	.cfi_offset
 ; 16: 	.cprestore

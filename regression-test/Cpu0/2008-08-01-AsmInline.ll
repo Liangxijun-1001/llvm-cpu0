@@ -4,7 +4,7 @@
 
 define i32 @A0(i32 %u, i32 %v) nounwind  {
 entry:
-; CHECK: multu 
+; CHECK: multu
 ; CHECK: mflo
 ; CHECK: mfhi
   %asmtmp = tail call %struct.DWstruct asm "multu $2,$3", "={lo},={hi},r,r"( i32 %u, i32 %v ) nounwind
@@ -27,4 +27,3 @@ entry:
   store i32 %2, i32* @gi2, align 4
   ret void
 }
-

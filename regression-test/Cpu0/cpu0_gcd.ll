@@ -9,4 +9,3 @@ entry:
 }
 
 declare i32 @llvm.cpu0.gcd(i32, i32) nounwind
-

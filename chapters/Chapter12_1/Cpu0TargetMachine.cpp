@@ -198,4 +198,3 @@ void Cpu0PassConfig::addPreEmitPass() {
   addPass(createCpu0LongBranchPass(TM));
   return;
 }
-

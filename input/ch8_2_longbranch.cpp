@@ -12,4 +12,3 @@ int test_longbranch()
     result = 1;
   return result;
 }
-

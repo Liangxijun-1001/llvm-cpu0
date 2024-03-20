@@ -7,7 +7,7 @@
 int test_phinode(int a , int b, int c)
 {
   int d = 2;
-  
+
   if (a == 0) {
     a = a+1; // a = 1
   }
@@ -18,6 +18,6 @@ int test_phinode(int a , int b, int c)
     a = a+2;
   }
   d = a + b;
-  
+
   return d;
 }

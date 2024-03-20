@@ -28,4 +28,3 @@ entry:
   %or = or i32 %shl, %shr
   ret i32 %or
 }
-

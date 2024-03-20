@@ -10,7 +10,7 @@ target triple = "mipsallegrexel-unknown-psp-elf"
   %struct.anon = type { i32, i32 }
 @s0 = global [8 x i8] c"AAAAAAA\00", align 4
 @foo = global %struct.anon { i32 2, i32 3 }
-@bar = global %struct.anon zeroinitializer 
+@bar = global %struct.anon zeroinitializer
 
 define i8* @A0() nounwind {
 entry:
@@ -19,9 +19,8 @@ entry:
 
 define i32 @A1() nounwind {
 entry:
-  load i32, i32* getelementptr (%struct.anon, %struct.anon* @foo, i32 0, i32 0), align 8 
-  load i32, i32* getelementptr (%struct.anon, %struct.anon* @foo, i32 0, i32 1), align 4 
+  load i32, i32* getelementptr (%struct.anon, %struct.anon* @foo, i32 0, i32 0), align 8
+  load i32, i32* getelementptr (%struct.anon, %struct.anon* @foo, i32 0, i32 1), align 4
   add i32 %1, %0
   ret i32 %2
 }
-

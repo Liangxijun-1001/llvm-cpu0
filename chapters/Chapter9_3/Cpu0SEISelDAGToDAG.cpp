@@ -84,7 +84,7 @@ void Cpu0SEDAGToDAGISel::selectAddESubE(unsigned MOp, SDValue InFlag,
   else {
     SDNode *StatusWord = CurDAG->getMachineNode(Cpu0::CMP, DL, VT, Ops);
     SDValue Constant1 = CurDAG->getTargetConstant(1, DL, VT);
-    Carry = CurDAG->getMachineNode(Cpu0::ANDi, DL, VT, 
+    Carry = CurDAG->getMachineNode(Cpu0::ANDi, DL, VT,
                                            SDValue(StatusWord,0), Constant1);
   }
   SDNode *AddCarry = CurDAG->getMachineNode(Cpu0::ADDu, DL, VT,
@@ -170,4 +170,3 @@ FunctionPass *llvm::createCpu0SEISelDag(Cpu0TargetMachine &TM,
                                         CodeGenOpt::Level OptLevel) {
   return new Cpu0SEDAGToDAGISel(TM, OptLevel);
 }
-

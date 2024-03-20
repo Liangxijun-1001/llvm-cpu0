@@ -111,7 +111,7 @@ Cpu0TargetLowering::LowerFormalArguments(SDValue Chain,
   SmallVector<CCValAssign, 16> ArgLocs;
   CCState CCInfo(CallConv, IsVarArg, DAG.getMachineFunction(),
                  ArgLocs, *DAG.getContext());
-  Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(), 
+  Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(),
                     CCInfo);
 
   Cpu0FI->setFormalArgInfo(CCInfo.getNextStackOffset(),
@@ -139,7 +139,7 @@ Cpu0TargetLowering::LowerReturn(SDValue Chain,
   // CCState - Info about the registers and stack slot.
   CCState CCInfo(CallConv, IsVarArg, MF, RVLocs,
                  *DAG.getContext());
-  Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(), 
+  Cpu0CC Cpu0CCInfo(CallConv, ABI.IsO32(),
                     CCInfo);
 
   // Analyze return values.
@@ -250,4 +250,3 @@ MVT Cpu0TargetLowering::Cpu0CC::getRegVT(MVT VT,
 
   return VT;
 }
-

@@ -31,7 +31,7 @@ void Cpu0InstrInfo::anchor() {}
 
 //@Cpu0InstrInfo {
 Cpu0InstrInfo::Cpu0InstrInfo(const Cpu0Subtarget &STI)
-    : 
+    :
 #if CH >= CH9_2
       Cpu0GenInstrInfo(Cpu0::ADJCALLSTACKDOWN, Cpu0::ADJCALLSTACKUP),
 #endif

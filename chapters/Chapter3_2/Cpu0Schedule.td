@@ -38,4 +38,3 @@ def Cpu0GenericItineraries : ProcessorItineraries<[ALU, IMULDIV], [], [
   InstrItinData<IIStore            , [InstrStage<1,  [ALU]>]>,
   InstrItinData<IIBranch           , [InstrStage<1,  [ALU]>]>
 ]>;
-

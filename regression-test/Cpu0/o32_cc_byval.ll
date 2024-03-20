@@ -44,4 +44,3 @@ declare void @callee1(float, %struct.S1* byval(%struct.S1))
 declare void @callee2(%struct.S2* byval(%struct.S2))
 
 declare void @callee3(float, %struct.S3* byval(%struct.S3), %struct.S1* byval(%struct.S1))
-

@@ -51,4 +51,3 @@ entry:
 }
 
 declare void @f8(i64)
-

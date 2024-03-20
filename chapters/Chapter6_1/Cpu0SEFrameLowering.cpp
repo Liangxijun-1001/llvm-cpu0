@@ -63,7 +63,7 @@ void Cpu0SEFrameLowering::emitPrologue(MachineFunction &MF,
   TII.adjustStackPtr(SP, -StackSize, MBB, MBBI);
 
   // emit ".cfi_def_cfa_offset StackSize"
-  unsigned CFIIndex = 
+  unsigned CFIIndex =
       MF.addFrameInst(
       MCCFIInstruction::cfiDefCfaOffset(nullptr, StackSize));
   BuildMI(MBB, MBBI, dl, TII.get(TargetOpcode::CFI_INSTRUCTION))
@@ -145,9 +145,9 @@ static void setAliasRegs(MachineFunction &MF, BitVector &SavedRegs, unsigned Reg
 }
 
 //@determineCalleeSaves {
-// This method is called immediately before PrologEpilogInserter scans the 
-//  physical registers used to determine what callee saved registers should be 
-//  spilled. This method is optional. 
+// This method is called immediately before PrologEpilogInserter scans the
+//  physical registers used to determine what callee saved registers should be
+//  spilled. This method is optional.
 void Cpu0SEFrameLowering::determineCalleeSaves(MachineFunction &MF,
                                                BitVector &SavedRegs,
                                                RegScavenger *RS) const {
@@ -166,4 +166,3 @@ const Cpu0FrameLowering *
 llvm::createCpu0SEFrameLowering(const Cpu0Subtarget &ST) {
   return new Cpu0SEFrameLowering(ST);
 }
-

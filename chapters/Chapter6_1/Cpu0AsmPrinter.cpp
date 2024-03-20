@@ -273,4 +273,3 @@ extern "C" void LLVMInitializeCpu0AsmPrinter() {
   RegisterAsmPrinter<Cpu0AsmPrinter> X(TheCpu0Target);
   RegisterAsmPrinter<Cpu0AsmPrinter> Y(TheCpu0elTarget);
 }
-

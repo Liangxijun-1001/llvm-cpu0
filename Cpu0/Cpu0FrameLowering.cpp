@@ -32,7 +32,7 @@
 
 using namespace llvm;
 
-//- emitPrologue() and emitEpilogue must exist for main(). 
+//- emitPrologue() and emitEpilogue must exist for main().
 
 //===----------------------------------------------------------------------===//
 //

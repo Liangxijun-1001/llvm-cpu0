@@ -61,7 +61,7 @@ bool Inserter::runOnMachineFunction(MachineFunction &F) {
        MFI != MFE; ++MFI) {
     MachineBasicBlock& MBB = *MFI;
     MachineBasicBlock::iterator I = MFI->begin();
-    
+
     /// isEHPad - Indicate that this basic block is entered via an
     /// exception handler.
     // If MBB is a landing pad, insert instruction that restores $gp after

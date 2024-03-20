@@ -15,4 +15,3 @@ class CCIfSubtarget<string F, CCAction A>:
 
 def CSR_O32 : CalleeSavedRegs<(add LR, FP,
                                    (sequence "S%u", 1, 0))>;
-

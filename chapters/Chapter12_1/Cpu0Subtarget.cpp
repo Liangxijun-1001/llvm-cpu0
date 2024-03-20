@@ -59,7 +59,7 @@ void Cpu0Subtarget::anchor() { }
 
 //@1 {
 Cpu0Subtarget::Cpu0Subtarget(const Triple &TT, StringRef CPU,
-                             StringRef FS, bool little, 
+                             StringRef FS, bool little,
                              const Cpu0TargetMachine &_TM) :
 //@1 }
   // Cpu0GenSubtargetInfo will display features by llc -march=cpu0 -mcpu=help
@@ -107,7 +107,7 @@ Cpu0Subtarget::initializeSubtargetDependencies(StringRef CPU, StringRef FS,
            <<  "CPU = " << CPU << "\n";
     exit(0);
   }
-  
+
   if (CPU == "cpu032I")
     Cpu0ArchVersion = Cpu032I;
   else if (CPU == "cpu032II")
@@ -139,4 +139,3 @@ bool Cpu0Subtarget::abiUsesSoftFloat() const {
 }
 
 const Cpu0ABIInfo &Cpu0Subtarget::getABI() const { return TM.getABI(); }
-

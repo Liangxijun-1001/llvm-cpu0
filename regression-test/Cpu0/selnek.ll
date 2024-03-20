@@ -77,7 +77,7 @@ cond.end14:                                       ; preds = %cond.false13, %cond
 
 define i32 @main() nounwind "target-cpu"="mips16" "target-features"="+mips16,+o32" {
 entry:
-  call void @calc_z() 
+  call void @calc_z()
   %0 = load i32, i32* @z1, align 4
   %call = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str, i32 0, i32 0), i32 %0)
   %1 = load i32, i32* @z2, align 4
@@ -89,7 +89,7 @@ entry:
   ret i32 0
 }
 
-declare i32 @printf(i8*, ...) 
+declare i32 @printf(i8*, ...)
 
 ; CHECK:  ld	$t9, %call16(calc_z)($gp)
 ; CHECK:  jalr	$t9
@@ -102,4 +102,3 @@ declare i32 @printf(i8*, ...)
 
 ; CHECK:  ld	$[[T0:[0-9]+|t9]], %call16(printf)($gp)
 ; CHECK:  jalr	$t9
-

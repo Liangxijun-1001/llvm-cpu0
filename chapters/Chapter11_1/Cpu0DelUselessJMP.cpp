@@ -54,9 +54,9 @@ namespace {
           return Changed;
         for (MachineFunction::iterator FI = F.begin(), FE = F.end();
              FJ != FE; ++FI, ++FJ)
-          // In STL style, F.end() is the dummy BasicBlock() like '\0' in 
-          //  C string. 
-          // FJ is the next BasicBlock of FI; When FI range from F.begin() to 
+          // In STL style, F.end() is the dummy BasicBlock() like '\0' in
+          //  C string.
+          // FJ is the next BasicBlock of FI; When FI range from F.begin() to
           //  the PreviousBasicBlock of F.end() call runOnMachineBasicBlock().
           Changed |= runOnMachineBasicBlock(*FI, *FJ);
       }
@@ -76,7 +76,7 @@ runOnMachineBasicBlock(MachineBasicBlock &MBB, MachineBasicBlock &MBBN) {
     I--;	// set I to the last instruction
   else
     return Changed;
-    
+
   if (I->getOpcode() == Cpu0::JMP && I->getOperand(0).getMBB() == &MBBN) {
     // I is the instruction of "jmp #offset=0", as follows,
     //     jmp	$BB0_3
@@ -94,4 +94,3 @@ runOnMachineBasicBlock(MachineBasicBlock &MBB, MachineBasicBlock &MBBN) {
 FunctionPass *llvm::createCpu0DelJmpPass(Cpu0TargetMachine &tm) {
   return new DelJmp(tm);
 }
-

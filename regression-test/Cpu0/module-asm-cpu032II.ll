@@ -71,4 +71,3 @@
   module asm "li $3, 0x00700000"
   module asm "la $3, 0x00800000($6)"
   module asm "la $3, 0x00900000"
-

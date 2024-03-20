@@ -6,7 +6,7 @@
 int test_DelUselessJMP()
 {
   int a = 1; int b = -2; int c = 3;
-  
+
   if (a == 0) {
     a++;
   }
@@ -21,7 +21,6 @@ int test_DelUselessJMP()
     a = a + c;
     c++;
   }
-  
+
   return a;
 }
-

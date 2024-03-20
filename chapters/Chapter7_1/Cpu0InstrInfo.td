@@ -168,7 +168,7 @@ def immZExt5 : ImmLeaf<i32, [{return Imm == (Imm & 0x1f);}]>;
 
 // Cpu0 Address Mode! SDNode frameindex could possibily be a match
 // since load and store instructions from stack used it.
-def addr : 
+def addr :
   ComplexPattern<iPTR, 2, "SelectAddr", [frameindex], [SDNPWantParent]>;
 
 //===----------------------------------------------------------------------===//
@@ -213,8 +213,8 @@ class ArithLogicR<bits<8> op, string instr_asm, SDNode OpNode,
 }
 
 let Predicates = [Ch4_2] in {
-class CmpInstr<bits<8> op, string instr_asm, 
-               InstrItinClass itin, RegisterClass RC, RegisterClass RD, 
+class CmpInstr<bits<8> op, string instr_asm,
+               InstrItinClass itin, RegisterClass RC, RegisterClass RD,
                bit isComm = 0>:
   FA<op, (outs RD:$ra), (ins RC:$rb, RC:$rc),
      !strconcat(instr_asm, "\t$ra, $rb, $rc"), [], itin> {
@@ -461,7 +461,7 @@ class EffectiveAddress<string instr_asm, RegisterClass RC, Operand Mem> :
      instr_asm, [(set RC:$ra, addr:$addr)], IIAlu>;
 }
 
-  
+
 //===----------------------------------------------------------------------===//
 // Instruction definition
 //===----------------------------------------------------------------------===//
@@ -793,4 +793,3 @@ defm : SetgtPatsCmp<CPURegs>;
 defm : SetgePatsCmp<CPURegs>;
 }
 } // let Predicates = [Ch4_2]
-

@@ -9,7 +9,7 @@ int test_control1()
   unsigned int a = 0;
   int b = 39;
   int i = 3;
-  
+
   for (i = 0; i <= 3; i++) {
     a = a + i; // a = 6
   }
@@ -25,7 +25,7 @@ label_1:
   for (i = 3; i >= 2; i--) {
     a--; // a = 4
   }
-  
+
   while (i < 100) {
     a++;
     i++;
@@ -42,6 +42,6 @@ label_1:
   default:
     a = 0;
   }
-  
+
   return (a+b); // 11+40 = 51
 }

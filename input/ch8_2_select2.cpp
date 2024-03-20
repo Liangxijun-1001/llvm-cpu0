@@ -3,7 +3,7 @@
 
 /// start
 
-// The following files will generate IR select when compile with clang -O1 but 
+// The following files will generate IR select when compile with clang -O1 but
 // clang -O0 won't generate IR select.
 volatile int a = 1;
 volatile int b = 2;
@@ -29,4 +29,3 @@ int test_movx_4()
 
   return c;
 }
-

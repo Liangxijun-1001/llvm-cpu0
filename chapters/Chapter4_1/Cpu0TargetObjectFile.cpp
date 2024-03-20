@@ -37,4 +37,3 @@ void Cpu0TargetObjectFile::Initialize(MCContext &Ctx, const TargetMachine &TM){
                                                ELF::SHF_WRITE | ELF::SHF_ALLOC);
   this->TM = &static_cast<const Cpu0TargetMachine &>(TM);
 }
-

@@ -61,7 +61,7 @@ static cl::list<std::string> InputFilenames(cl::Positional,
                                             cl::ZeroOrMore,
                                             cl::cat(Elf2hexCat));
 std::string TripleName = "";
-                                            
+
 static const Target *getTarget(const ObjectFile *Obj) {
   // Figure out the target triple.
   Triple TheTriple("unknown-unknown-unknown");
@@ -101,12 +101,12 @@ static void getName(llvm::object::SectionRef const &Section, StringRef Name) {
 
 
 static cl::opt<bool>
-LittleEndian("le", 
+LittleEndian("le",
 cl::desc("Little endian format"));
 
 #ifdef ELF2HEX_DEBUG
 // Modified from PrintSectionHeaders()
-uint64_t GetSectionHeaderStartAddress(const ObjectFile *Obj, 
+uint64_t GetSectionHeaderStartAddress(const ObjectFile *Obj,
   StringRef sectionName) {
 //  outs() << "Sections:\n"
 //            "Idx Name          Size      Address          Type\n";
@@ -177,7 +177,7 @@ using namespace llvm::elf2hex;
 
 Reader reader;
 
-VerilogHex::VerilogHex(std::unique_ptr<MCInstPrinter>& instructionPointer, 
+VerilogHex::VerilogHex(std::unique_ptr<MCInstPrinter>& instructionPointer,
   std::unique_ptr<const MCSubtargetInfo>& subTargetInfo, const ObjectFile *Obj) :
   IP(instructionPointer), STI(subTargetInfo) {
   lastDumpAddr = 0;
@@ -196,7 +196,7 @@ VerilogHex::VerilogHex(std::unique_ptr<MCInstPrinter>& instructionPointer,
   lastDumpAddr = 0x100;
 }
 
-void VerilogHex::PrintBootSection(uint64_t textOffset, uint64_t isrAddr, 
+void VerilogHex::PrintBootSection(uint64_t textOffset, uint64_t isrAddr,
                                   bool isLittleEndian) {
   uint64_t offset = textOffset - 4;
 
@@ -248,7 +248,7 @@ void VerilogHex::PrintBootSection(uint64_t textOffset, uint64_t isrAddr,
   }
 }
 
-// Fill /*address*/ 00 00 00 00 [startAddr..endAddr] from startAddr to endAddr. 
+// Fill /*address*/ 00 00 00 00 [startAddr..endAddr] from startAddr to endAddr.
 // Include startAddr and endAddr.
 void VerilogHex::Fill0s(uint64_t startAddr, uint64_t endAddr) {
   std::size_t addr;
@@ -264,7 +264,7 @@ void VerilogHex::Fill0s(uint64_t startAddr, uint64_t endAddr) {
   return;
 }
 
-void VerilogHex::ProcessDisAsmInstruction(MCInst inst, uint64_t Size, 
+void VerilogHex::ProcessDisAsmInstruction(MCInst inst, uint64_t Size,
                                 ArrayRef<uint8_t> Bytes, const ObjectFile *Obj) {
   SectionRef Section = reader.CurrentSection();
   StringRef Name;
@@ -298,7 +298,7 @@ void VerilogHex::ProcessDisAsmInstruction(MCInst inst, uint64_t Size,
   }
 
   if (si != reader.CurrentSi()) {
-    // print function name in section .text just before the first instruction 
+    // print function name in section .text just before the first instruction
     // is printed
     outs() << '\n' << "/*" << reader.CurrentSymbol() << ":*/\n";
     si = reader.CurrentSi();
@@ -306,7 +306,7 @@ void VerilogHex::ProcessDisAsmInstruction(MCInst inst, uint64_t Size,
 
   // print instruction address
   outs() << format("/*%8" PRIx64 ":*/", SectionAddr + Index);
- 
+
   // print instruction in hex format
   outs() << "\t";
   dumpBytes(Bytes.slice(Index, Size), outs());
@@ -421,7 +421,7 @@ uint64_t Reader::CurrentIndex() {
 
 // Porting from DisassembleObject() of llvm-objump.cpp
 void Reader::DisassembleObject(const ObjectFile *Obj
-/*, bool InlineRelocs*/  , std::unique_ptr<MCDisassembler>& DisAsm, 
+/*, bool InlineRelocs*/  , std::unique_ptr<MCDisassembler>& DisAsm,
   std::unique_ptr<MCInstPrinter>& IP,
   std::unique_ptr<const MCSubtargetInfo>& STI) {
   VerilogHex hexOut(IP, STI, Obj);
@@ -437,12 +437,12 @@ void Reader::DisassembleObject(const ObjectFile *Obj
 
     if (BaseAddr < 0x100)
       continue;
- 
+
   #ifdef ELF2HEX_DEBUG
     StringRef SectionName = unwrapOrError(Section.getName(), Obj->getFileName());
     errs() << "SectionName " << SectionName << format("  BaseAddr %8" PRIx64 "\n", BaseAddr);
   #endif
- 
+
     bool text;
     text = Section.isText();
     if (!text) {
@@ -452,7 +452,7 @@ void Reader::DisassembleObject(const ObjectFile *Obj
     // It's .text section
     uint64_t SectionAddr;
     SectionAddr = Section.getAddress();
- 
+
     // Make a list of all the symbols in this section.
     for (const SymbolRef &Symbol : Obj->symbols()) {
       if (Section.containsSymbol(Symbol)) {
@@ -643,4 +643,3 @@ int main(int argc, char **argv) {
 
   return EXIT_SUCCESS;
 }
-

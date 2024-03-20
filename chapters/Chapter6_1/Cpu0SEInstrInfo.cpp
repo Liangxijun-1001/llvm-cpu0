@@ -183,4 +183,3 @@ void Cpu0SEInstrInfo::expandRetLR(MachineBasicBlock &MBB,
 const Cpu0InstrInfo *llvm::createCpu0SEInstrInfo(const Cpu0Subtarget &STI) {
   return new Cpu0SEInstrInfo(STI);
 }
-

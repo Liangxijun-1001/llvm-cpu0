@@ -7,4 +7,3 @@ entry:
 }
 
 declare i32 @cpu0_gcd_soft(i32, i32) nounwind
-

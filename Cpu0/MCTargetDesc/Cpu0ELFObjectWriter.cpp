@@ -149,7 +149,7 @@ Cpu0ELFObjectWriter::needsRelocateWithSymbol(const MCSymbol &Sym,
   // points to a symbol.
   case ELF::R_CPU0_HI16:
   case ELF::R_CPU0_LO16:
-  // R_CPU0_32 should be a relocation record, I don't know why Mips set it to 
+  // R_CPU0_32 should be a relocation record, I don't know why Mips set it to
   // false.
   case ELF::R_CPU0_32:
     return true;
@@ -159,7 +159,7 @@ Cpu0ELFObjectWriter::needsRelocateWithSymbol(const MCSymbol &Sym,
   }
 }
 
-std::unique_ptr<MCObjectTargetWriter> 
+std::unique_ptr<MCObjectTargetWriter>
 llvm::createCpu0ELFObjectWriter(const Triple &TT) {
   uint8_t OSABI = MCELFObjectTargetWriter::getOSABI(TT.getOS());
   bool IsN64 = false;

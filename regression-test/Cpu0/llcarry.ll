@@ -42,5 +42,3 @@ entry:
   store i64 %add, i64* @m, align 8
   ret void
 }
-
-

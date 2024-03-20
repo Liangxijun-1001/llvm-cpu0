@@ -44,7 +44,7 @@ Cpu0SETargetLowering::Cpu0SETargetLowering(const Cpu0TargetMachine &TM,
   setOperationAction(ISD::ATOMIC_FENCE,       MVT::Other, Custom);
 #endif
 
-// must, computeRegisterProperties - Once all of the register classes are 
+// must, computeRegisterProperties - Once all of the register classes are
 //  added, this allows us to compute derived properties we expose.
   computeRegisterProperties(Subtarget.getRegisterInfo());
 }

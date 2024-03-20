@@ -33,4 +33,3 @@ void print_integer(int x)
 
   return;
 }
-

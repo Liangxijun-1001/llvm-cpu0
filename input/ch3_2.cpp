@@ -12,4 +12,3 @@ int main()
 
   return (c+d);
 }
-

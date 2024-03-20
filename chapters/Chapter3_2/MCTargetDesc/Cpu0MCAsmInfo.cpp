@@ -41,4 +41,3 @@ Cpu0MCAsmInfo::Cpu0MCAsmInfo(const Triple &TheTriple) {
   ExceptionsType = ExceptionHandling::DwarfCFI;
   DwarfRegNumForCFI = true;
 }
-

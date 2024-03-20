@@ -57,4 +57,3 @@ entry:
   store i32 %inc, i32* @f3.i, align 4
   ret i32 %inc
 }
-

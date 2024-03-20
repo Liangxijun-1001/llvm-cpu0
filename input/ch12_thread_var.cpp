@@ -17,4 +17,3 @@ int test_thread_var_2()
     b = 3;
     return b;
 }
-

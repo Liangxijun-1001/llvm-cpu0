@@ -1,0 +1,36 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    // tasks 可以创建多个任务，在启动调试程序之前可以让这些tasks之间配合完成一系列的工作
+    "tasks": [
+        // shell build cpu0 build 任务完成带有Cpu0后端的LLVM源代码的编译工作
+        {
+            "label": "shell build llvm-cpu0 source",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "build-cpu0.sh"
+            ]
+        },
+        // build LLVM IR from source code with clang 任务完成源代码到LLVM汇编编译
+        // 其中args里面，第一个参数为需执行脚本的路径，第二个参数为需要编译的源代码路径
+        // 脚本会完成 *.cpp 或 *.c 的编译并生成LLVM汇编代码 *.ll到同级目录下
+        {
+            "label": "clang build test source code",
+            "type": "shell",
+            "command": "sh",
+            "args":[
+                "/home1/liangnus/learning/xiaoyu1998/llvm-cpu0/build-testcode.sh",
+                "/home1/liangnus/learning/xiaoyu1998/llvm-cpu0/input/lxj.cpp"
+            ]
+        },
+        // 如果存在多个任务，需要指定一个编译任务顺序
+        {
+            "label": "buildAll",                // 执行所有任务
+            "dependsOrder": "sequence",         //任务顺序执行
+            "dependsOn": ["shell build llvm-cpu0 source",
+                         "clang build test source code"]
+        }
+    ]
+}

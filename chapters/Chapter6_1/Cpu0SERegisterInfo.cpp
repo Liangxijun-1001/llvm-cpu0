@@ -25,4 +25,3 @@ const TargetRegisterClass *
 Cpu0SERegisterInfo::intRegClass(unsigned Size) const {
   return &Cpu0::CPURegsRegClass;
 }
-

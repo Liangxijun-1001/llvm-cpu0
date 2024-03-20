@@ -17,7 +17,7 @@ define i32 @_Z8test_modv() #0 {
 ; CHECK:  sra $[[T5:[0-9]+|t9]], $[[T3]], 1
 ; CHECK:  addu  $[[T6:[0-9]+|t9]], $[[T5]], $[[T4]]
 ; CHECK:  mul
-; CHECK:  subu 
+; CHECK:  subu
   store i32 11, i32* %b, align 4
   %1 = load i32* %b, align 4
   %2 = add nsw i32 %1, 1

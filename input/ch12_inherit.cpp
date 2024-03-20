@@ -64,11 +64,11 @@ int test_cpp_polymorphism() {
   CRectangle poly1;
   CTriangle poly2;
   CAngle poly3;
-  
+
   CPolygon * ppoly1 = &poly1;
   CPolygon * ppoly2 = &poly2;
   CPolygon * ppoly3 = &poly3;
-  
+
   ppoly1->set_values (4,5);
   ppoly2->set_values (4,5);
   ppoly3->set_values (4,5);
@@ -77,8 +77,7 @@ int test_cpp_polymorphism() {
   ppoly3->printarea();
   if (ppoly1->area() == 20 && ppoly2->area() == 10 && ppoly3->area() == 5)
     return 0;
-  
+
   return 0;
 }
 #endif
-

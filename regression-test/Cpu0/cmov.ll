@@ -5,7 +5,7 @@
 
 ; O32:  lui $[[R0:[0-9]+|t9]], %got_hi
 ; O32:  ori $[[R1:[0-9]+|t9]], ${{[0-9]+|t9}}, %got_lo
-; O32:  movn ${{[0-9]+|t9}}, $[[R1]], ${{[0-9]+|t9}} 
+; O32:  movn ${{[0-9]+|t9}}, $[[R1]], ${{[0-9]+|t9}}
 define i32* @cmov1(i32 %s) nounwind readonly {
 entry:
   %tobool = icmp ne i32 %s, 0
@@ -40,4 +40,3 @@ entry:
   %cond = select i1 %cmp, i32 %b, i32 %c
   ret i32 %cond
 }
-

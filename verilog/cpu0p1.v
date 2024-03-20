@@ -28,8 +28,8 @@ reg [1:0] state;
 reg [31:0] pc, pc0;
 
     always @(posedge clock) begin
-        if (reset) begin oReady=0; iGet=0; state=`IDLE; end 
-        else case (state) 
+        if (reset) begin oReady=0; iGet=0; state=`IDLE; end
+        else case (state)
             `IDLE: begin // 閒置中
                 #1;
                 if (iReady) begin // 輸入資料已準備好
@@ -45,12 +45,12 @@ reg [31:0] pc, pc0;
                 end
             end
             `WAIT_ACK:begin // 等待回應 (資料被取走)
-                #1;                
+                #1;
                 if (oGet) begin // 資料被取走了
                     oReady = 0; // 下一筆輸出資料尚未準備好。
                     state = `IDLE; // 回到閒置狀態，準備取得下一筆輸入資料
                 end
-                #1;                
+                #1;
                 iGet = 0;  // 下一筆輸入資料尚未準備好。
             end
         endcase
@@ -70,10 +70,10 @@ module iDecode(input clock, reset, iReady, output reg iGet, oReady, input oGet);
     reg signed [31:0] c12, c16, c24, Ra, Rb, Rc; // ipc:instruction PC
 
     always @(posedge clock) begin
-        if (reset) begin oReady=0; iGet=0; state=`IDLE; end 
-        else case (state) 
+        if (reset) begin oReady=0; iGet=0; state=`IDLE; end
+        else case (state)
             `IDLE: begin // 閒置中
-                #1;                
+                #1;
                 if (iReady && (!cpu.m_en1 || cpu.m_ack1)) begin // 輸入資料已準備好
                     memReadEnd1(ir); // IR = dbus = m[PC]
                     pc0 = cpu.if1.pc0;
@@ -90,7 +90,7 @@ module iDecode(input clock, reset, iReady, output reg iGet, oReady, input oGet);
                     c24 = cx24; // 取出 cx24 並轉為 32 位元有號數 c24
                     Ra = cpu.R[a];
                     Rb = cpu.R[b];
-                    Rc = cpu.R[c]; 
+                    Rc = cpu.R[c];
                     case (op)
                         // 載入儲存指令
                         cpu.LD:  memReadStart2(Rb+c16, `INT32);         // 載入word;    LD Ra, [Rb+Cx];     Ra<=[Rb+ Cx]
@@ -101,7 +101,7 @@ module iDecode(input clock, reset, iReady, output reg iGet, oReady, input oGet);
                         cpu.STR: memWriteStart2(Rb+Rc, Ra, `INT32);    // ST的Rc版;    STR Ra, [Rb+Rc];    Ra=>[Rb+ Rc]
                         cpu.LBR: memReadStart2(Rb+Rc, `BYTE);        // LDB的Rc版;    LBR Ra, [Rb+Rc];    Ra<=(byte)[Rb+ Rc]
                         cpu.SBR: memWriteStart2(Rb+Rc, Ra, `BYTE);    // STB的Rc版;    SBR Ra, [Rb+Rc];    Ra=>(byte)[Rb+ Rc]
-                        // 堆疊指令    
+                        // 堆疊指令
                         cpu.PUSH:begin `SP = `SP-4; memWriteStart2(`SP, Ra, `INT32); end // 推入 word;    PUSH Ra;    SP-=4;[SP]<=Ra;
                         cpu.POP: begin memReadStart2(`SP, `INT32); `SP = `SP + 4; end    // 彈出 word;    POP Ra;     Ra=[SP];SP+=4;
                         cpu.PUSHB:begin `SP = `SP-1; memWriteStart2(`SP, Ra, `BYTE); end    // 推入 byte;    PUSHB Ra;     SP--;[SP]<=Ra;(byte)
@@ -112,15 +112,15 @@ module iDecode(input clock, reset, iReady, output reg iGet, oReady, input oGet);
                     state = `WAIT_ACK; // 進入等待狀態
                     $display("%-4d:decode, pc0=%x pc=%x ir=%x op=%x a=%x b=%x c=%x cx12=%x", $stime, pc0, pc, ir, op, a, b, c, cx12);
                 end
-                #1;                
+                #1;
             end
             `WAIT_ACK:begin // 等待回應 (資料被取走)
-                #1;                
+                #1;
                 if (oGet) begin // 資料被取走了
                     oReady = 0; // 下一筆輸出資料尚未準備好。
                     state = `IDLE; // 回到閒置狀態，準備取得下一筆輸入資料
                 end
-                #1;                
+                #1;
                 iGet = 0;  // 下一筆輸入資料尚未準備好。
             end
         endcase
@@ -138,10 +138,10 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
     reg [1:0] skip;
 
     always @(posedge clock) begin
-        if (reset) begin oReady=0; iGet=0; state=`IDLE; skip = 0; end 
-        else case (state) 
+        if (reset) begin oReady=0; iGet=0; state=`IDLE; skip = 0; end
+        else case (state)
             `IDLE: begin // 閒置中
-                #1;                
+                #1;
                 if (iReady && (!cpu.m_en2 || cpu.m_ack2)) begin // 輸入資料已準備好
                     if (skip > 0) skip = skip-1; else begin
                     // 處理輸入資料
@@ -182,7 +182,7 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
                         cpu.JNE: if (!`Z) begin `PC=pc+c24; skip=2; end  // 跳躍 (不相等);    JNE Cx;     if SW(!=) PC  PC+Cx
                         cpu.JLT: if (`N) begin `PC=pc+c24; skip=2; end        // 跳躍 ( < );        JLT Cx;     if SW(<) PC  PC+Cx
                         cpu.JGT: if (!`N&&!`Z) begin `PC=pc+c24; skip=2; end        // 跳躍 ( > );        JGT Cx;     if SW(>) PC  PC+Cx
-                        cpu.JLE: if (`N || `Z) begin `PC=pc+c24; skip=2; end        // 跳躍 ( <= );        JLE Cx;     if SW(<=) PC  PC+Cx    
+                        cpu.JLE: if (`N || `Z) begin `PC=pc+c24; skip=2; end        // 跳躍 ( <= );        JLE Cx;     if SW(<=) PC  PC+Cx
                         cpu.JGE: if (!`N || `Z) begin `PC=pc+c24; skip=2; end    // 跳躍 ( >= );        JGE Cx;     if SW(>=) PC  PC+Cx
                         cpu.JMP: begin `PC = pc+c24; skip=2; end                     // 跳躍 (無條件);    JMP Cx;     PC <= PC+Cx
                         cpu.SWI: begin `LR=pc;`PC= c24; `I = 1'b1; skip=2; end // 軟中斷;    SWI Cx;         LR <= PC; PC <= Cx; INT<=1
@@ -191,26 +191,26 @@ module iExec(input clock, reset, iReady, output reg iGet, oReady, input oGet);
                             if (`PC < 0) begin
                                 $display("RET to PC < 0, finished!");
                                 $finish;
-                            end                        
+                            end
                         end
                         cpu.IRET:begin `PC=`LR;`I = 1'b0; skip=2; end    // 中斷返回;        IRET;         PC <= LR; INT<=0
                     endcase
                     Ra = cpu.R[a];
                     $display("%-4d:exec  , pc0=%x ir=%x Ra=%x=%-4d Rb=%x Rc=%x", $stime, pc0, ir, Ra, Ra, Rb, Rc);
                     end
-                    #1;                
+                    #1;
                     oReady = 1; // 輸出資料已準備好
                     state = `WAIT_ACK; // 進入等待狀態
                 end
             end
             `WAIT_ACK:begin // 等待回應 (資料被取走)
-                #1;                
+                #1;
                 if (oGet) begin // 資料被取走了
-                    #1;                
+                    #1;
                     oReady = 0; // 下一筆輸出資料尚未準備好。
                     state = `IDLE; // 回到閒置狀態，準備取得下一筆輸入資料
                 end
-                #1;                
+                #1;
                 iGet = 0;  // 下一筆輸入資料尚未準備好。
             end
         endcase
@@ -220,7 +220,7 @@ endmodule
 module cpu(input clock, reset, output [31:0] ir, pc,
            output [31:0] mar1, mdr1, inout [31:0] dbus1, output reg m_en1, m_rw1, input m_ack1, output reg [1:0] m_size1,
            output [31:0] mar2, mdr2, inout [31:0] dbus2, output reg m_en2, m_rw2, input m_ack2, output reg [1:0] m_size2
-           ); // cpu0 是由 if1, id1, ie1, iw1 四根管子 (pipe) 連接後形成的管線           
+           ); // cpu0 是由 if1, id1, ie1, iw1 四根管子 (pipe) 連接後形成的管線
    // 管線相關參數
     wire ifiGet, idiGet, ieiGet, iwiGet; // pipe 輸入是否準備好了
     wire ifoReady, idoReady, ieoReady, iwoReady; // pipe 輸出是否準備好了
@@ -239,7 +239,7 @@ module cpu(input clock, reset, output [31:0] ir, pc,
 
     task memReadStart1(input [31:0] addr, input [1:0] size); begin // 讀取記憶體 Word
        mar1 = addr;     // read(m[addr])
-       m_rw1 = 1;     // 讀取模式：read 
+       m_rw1 = 1;     // 讀取模式：read
        m_en1 = 1;     // 啟動讀取
        m_size1 = size;
     end    endtask
@@ -251,7 +251,7 @@ module cpu(input clock, reset, output [31:0] ir, pc,
     end    endtask
 
     // 寫入記憶體 -- addr:寫入位址, data:寫入資料
-    task memWriteStart1(input [31:0] addr, input [31:0] data, input [1:0] size); begin 
+    task memWriteStart1(input [31:0] addr, input [31:0] data, input [1:0] size); begin
        mar1 = addr;    // write(m[addr], data)
        mdr1 = data;
        m_rw1 = 0;    // 寫入模式：write
@@ -265,7 +265,7 @@ module cpu(input clock, reset, output [31:0] ir, pc,
 
     task memReadStart2(input [31:0] addr, input [1:0] size); begin // 讀取記憶體 Word
        mar2 = addr;     // read(m[addr])
-       m_rw2 = 1;     // 讀取模式：read 
+       m_rw2 = 1;     // 讀取模式：read
        m_en2 = 1;     // 啟動讀取
        m_size2 = size;
     end    endtask
@@ -277,7 +277,7 @@ module cpu(input clock, reset, output [31:0] ir, pc,
     end    endtask
 
     // 寫入記憶體 -- addr:寫入位址, data:寫入資料
-    task memWriteStart2(input [31:0] addr, input [31:0] data, input [1:0] size); begin 
+    task memWriteStart2(input [31:0] addr, input [31:0] data, input [1:0] size); begin
        mar2 = addr;    // write(m[addr], data)
        mdr2 = data;
        m_rw2 = 0;    // 寫入模式：write
@@ -302,7 +302,7 @@ module cpu(input clock, reset, output [31:0] ir, pc,
     end
 endmodule
 
-module memory(input clock, reset, en1, en2, rw1, rw2, output reg ack1, ack2, input [1:0] size1, size2, 
+module memory(input clock, reset, en1, en2, rw1, rw2, output reg ack1, ack2, input [1:0] size1, size2,
               input [31:0] abus1, abus2, dbus_in1, dbus_in2, output [31:0] dbus_out1, dbus_out2);
 reg [7:0] m [0:258];
 reg [31:0] data1, data2;
@@ -315,7 +315,7 @@ initial begin
     end
 end
 
-    always @(*) 
+    always @(*)
     begin
         if (en1) begin
             ack1 = 0;
@@ -346,7 +346,7 @@ end
     end
     assign dbus_out1 = data1;
 
-    always @(*) 
+    always @(*)
     begin
         if (en2) begin
             ack2 = 0;
@@ -389,7 +389,7 @@ module main;
         .mar1(mar1), .mdr1(mdr1), .dbus1(dbus1), .m_en1(m_en1), .m_rw1(m_rw1), .m_size1(m_size1), .m_ack1(m_ack1),
         .mar2(mar2), .mdr2(mdr2), .dbus2(dbus2), .m_en2(m_en2), .m_rw2(m_rw2), .m_size2(m_size2), .m_ack2(m_ack2));
 
-    memory memory0(.clock(clock), .reset(reset), 
+    memory memory0(.clock(clock), .reset(reset),
       .en1(m_en1), .rw1(m_rw1), .ack1(m_ack1), .size1(m_size1), .abus1(mar1), .dbus_in1(mdr1), .dbus_out1(dbus1),
       .en2(m_en2), .rw2(m_rw2), .ack2(m_ack2), .size2(m_size2), .abus2(mar2), .dbus_in2(mdr2), .dbus_out2(dbus2));
 

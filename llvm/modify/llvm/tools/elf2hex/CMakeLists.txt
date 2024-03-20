@@ -1,4 +1,4 @@
-# elf2hex.cpp needs backend related functions, like 
+# elf2hex.cpp needs backend related functions, like
 # LLVMInitializeCpu0TargetInfo and LLVMInitializeCpu0Disassembler ... etc.
 # Set LLVM_LINK_COMPONENTS then it can link them during the link stage.
 set(LLVM_LINK_COMPONENTS
@@ -29,4 +29,3 @@ endif()
 if(LLVM_INSTALL_BINUTILS_SYMLINKS)
   add_llvm_tool_symlink(elf2hex elf2hex)
 endif()
-

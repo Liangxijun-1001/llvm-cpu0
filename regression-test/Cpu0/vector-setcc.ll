@@ -13,4 +13,3 @@ entry:
   store <4 x i32> %sext, <4 x i32>* @g0, align 16
   ret void
 }
-

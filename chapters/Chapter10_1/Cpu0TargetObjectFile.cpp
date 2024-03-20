@@ -106,4 +106,3 @@ Cpu0TargetObjectFile::SelectSectionForGlobal(
   // Otherwise, we work the same as ELF.
   return TargetLoweringObjectFileELF::SelectSectionForGlobal(GO, Kind, TM);
 }
-

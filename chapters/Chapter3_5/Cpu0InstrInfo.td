@@ -141,7 +141,7 @@ def immZExt5 : ImmLeaf<i32, [{return Imm == (Imm & 0x1f);}]>;
 
 // Cpu0 Address Mode! SDNode frameindex could possibily be a match
 // since load and store instructions from stack used it.
-def addr : 
+def addr :
   ComplexPattern<iPTR, 2, "SelectAddr", [frameindex], [SDNPWantParent]>;
 
 //===----------------------------------------------------------------------===//
@@ -274,7 +274,7 @@ class RetBase<RegisterClass RC>: JumpFR<0x3c, "ret", RC> {
   let hasExtraSrcRegAllocReq = 1;
 }
 
-  
+
 //===----------------------------------------------------------------------===//
 // Instruction definition
 //===----------------------------------------------------------------------===//
@@ -348,4 +348,3 @@ def : Pat<(i32 immLow16Zero:$in),
 def : Pat<(i32 imm:$imm),
           (ORi (LUi (HI16 imm:$imm)), (LO16 imm:$imm))>;
 } // let Predicates = [Ch3_4]
-

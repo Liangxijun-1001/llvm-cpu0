@@ -29,12 +29,12 @@ int inlineasm_longlong(void)
                        :"=r"(a) // 0x700070007000700b
                        :"m"(*p)
                        );
-  int* q = (p+1); // Set q just before inline asm refer to avoid register clobbered. 
+  int* q = (p+1); // Set q just before inline asm refer to avoid register clobbered.
 //  call i32 asm sideeffect "ld $0,$1", "=r,*m"(i32* %6) #2, !srcloc !3
   __asm__ __volatile__("ld %0,%1"
                        :"=r"(b) // 11
                        :"m"(*q)
-//              Or use :"m"(*(p+1)) to avoid register clobbered. 
+//              Or use :"m"(*(p+1)) to avoid register clobbered.
                        );
 
   return (a+b);
@@ -125,7 +125,7 @@ int inlineasm_float()
 {
   float a = 2.2;
   float b = 3.3;
-  
+
   int c = (int)(a + b);
 
   int d;
@@ -154,4 +154,3 @@ int test_inlineasm()
 
   return (a+b+c+d+e+f); // 25+11+15-9+3+4=49
 }
-

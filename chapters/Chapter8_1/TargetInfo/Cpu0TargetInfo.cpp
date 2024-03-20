@@ -21,4 +21,3 @@ extern "C" void LLVMInitializeCpu0TargetInfo() {
   RegisterTarget<Triple::cpu0el,
         /*HasJIT=*/true> Y(TheCpu0elTarget, "cpu0el", "CPU0 (32-bit little endian)", "Cpu0");
 }
-

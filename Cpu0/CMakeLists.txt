@@ -7,9 +7,9 @@ tablegen(LLVM Cpu0GenAsmMatcher.inc -gen-asm-matcher)
 
 set(LLVM_TARGET_DEFINITIONS Cpu0Other.td)
 
-# Generate Cpu0GenRegisterInfo.inc and Cpu0GenInstrInfo.inc which included by 
-#  your hand code C++ files. 
-# Cpu0GenRegisterInfo.inc came from Cpu0RegisterInfo.td, Cpu0GenInstrInfo.inc 
+# Generate Cpu0GenRegisterInfo.inc and Cpu0GenInstrInfo.inc which included by
+#  your hand code C++ files.
+# Cpu0GenRegisterInfo.inc came from Cpu0RegisterInfo.td, Cpu0GenInstrInfo.inc
 #  came from Cpu0InstrInfo.td.
 tablegen(LLVM Cpu0GenRegisterInfo.inc -gen-register-info)
 tablegen(LLVM Cpu0GenInstrInfo.inc -gen-instr-info)
