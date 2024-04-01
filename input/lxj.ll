@@ -1,5 +1,5 @@
-; ModuleID = '/home1/liangnus/learning/xiaoyu1998/llvm-cpu0/input/lxj.cpp'
-source_filename = "/home1/liangnus/learning/xiaoyu1998/llvm-cpu0/input/lxj.cpp"
+; ModuleID = '/home1/liangnus/learning/llvm-cpu0/input/lxj.cpp'
+source_filename = "/home1/liangnus/learning/llvm-cpu0/input/lxj.cpp"
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-unknown-linux-gnu"
 
