@@ -9,7 +9,7 @@
 #!/bin/bash
 ROOT_DIR=$(pwd)
 TUTORIAL_DIR=${ROOT_DIR}/tutorial
-LLVM_PROJECT_DIR=${TUTORIAL_DIR}/llvm-project
+LLVM_PROJECT_DIR=${TUTORIAL_DIR}/llvm-project/build/bin
 LLVM_LPU_DIR=${TUTORIAL_DIR}/lpu
 
 # 检查用户提供的参数个数
@@ -42,8 +42,12 @@ if ! test -d ${LLVM_LPU_DIR}; then
   cd ${LLVM_LPU_DIR}
 # ln clang is must since Cpu0 asm boot.cpp and start.h need building clang on
 # llvm/Cpu0.
+  rm -rvf clang
+  rm -rvf clang++
+  rm -rvf llvm
   ln -s ${LLVM_PROJECT_DIR}/clang clang
-  ln -s ${LLVM_PROJECT_DIR}/llvm llvm
+  ln -s ${LLVM_PROJECT_DIR}/clang++ clang++
+  ln -s ${LLVM_PROJECT_DIR}/../../llvm llvm
   cd -
   # popd vscode not support 'popd' command
   cp -rf ${ROOT_DIR}/llvm/modify_lpu/llvm/* ${LLVM_LPU_DIR}/llvm/.
@@ -56,7 +60,7 @@ if ! test -d ${LLVM_LPU_DIR}; then
   cd build
 # clang has better diagnosis in report error message
   # 在编译LLVM-LPU后端的时候直接使用之前编译的LLVM clang和clang++编译代码
-  cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang \
+  cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${LLVM_LPU_DIR}/clang++ -DCMAKE_C_COMPILER=${LLVM_LPU_DIR}/clang \
   -DLLVM_TARGETS_TO_BUILD=LPU \
   -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=LPU \
   -DLLVM_OPTIMIZED_TABLEGEN=On  \
@@ -83,10 +87,11 @@ else #如果存在lpu文件夹
     echo -e "\033[1;31 build.ninja file not exist, make reconfiguration... \033[0m"
     cd ${LLVM_LPU_DIR}
     rm -rvf clang
+    rm -rvf clang++
     rm -rvf llvm
-    rm -rf ${LLVM_LPU_DIR}/build
     ln -s ${LLVM_PROJECT_DIR}/clang clang
-    ln -s ${LLVM_PROJECT_DIR}/llvm llvm
+    ln -s ${LLVM_PROJECT_DIR}/clang++ clang++
+    ln -s ${LLVM_PROJECT_DIR}/../../llvm llvm
     cd -
     # popd vscode not support 'popd' command
     cp -rf ${ROOT_DIR}/llvm/modify_lpu/llvm/* ${LLVM_LPU_DIR}/llvm/.
@@ -94,7 +99,7 @@ else #如果存在lpu文件夹
     cp -rf ${ROOT_DIR}/chapters/LPU/${to_learn_lpu_stage}/* ${LLVM_LPU_DIR}/llvm/lib/Target/.
     mkdir -p ${LLVM_LPU_DIR}/build
     cd ${LLVM_LPU_DIR}/build
-    cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang \
+    cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${LLVM_LPU_DIR}/clang++ -DCMAKE_C_COMPILER=${LLVM_LPU_DIR}/clang \
     -DLLVM_TARGETS_TO_BUILD=LPU \
     -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=LPU \
     -DLLVM_OPTIMIZED_TABLEGEN=On  \
