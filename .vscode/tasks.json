@@ -6,11 +6,12 @@
     "tasks": [
         // shell build cpu0 build 任务完成带有Cpu0后端的LLVM源代码的编译工作
         {
-            "label": "shell build llvm-cpu0 source",
+            "label": "shell build llvm-lpu source",
             "type": "shell",
             "command": "sh",
             "args": [
-                "build-cpu0.sh"
+                "build-lpu.sh",
+                "stage2"
             ]
         },
         // build LLVM IR from source code with clang 任务完成源代码到LLVM汇编编译
@@ -29,7 +30,7 @@
         {
             "label": "buildAll",                // 执行所有任务
             "dependsOrder": "sequence",         //任务顺序执行
-            "dependsOn": ["shell build llvm-cpu0 source",
+            "dependsOn": ["shell build llvm-lpu source",
                          "clang build test source code"]
         }
     ]

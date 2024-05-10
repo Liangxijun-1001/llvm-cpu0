@@ -1,7 +1,7 @@
 ###
  # @Author: Liangnus
  # @Date: 2024-04-01 02:24:29
- # @LastEditTime: 2024-04-01 09:04:09
+ # @LastEditTime: 2024-05-10 06:15:46
  # @LastEditors: Liangnus
  # @Description: 编译LLVM-LPU后端代码
  # @FilePath: /llvm-cpu0/build-lpu.sh
@@ -80,21 +80,14 @@ else #如果存在lpu文件夹
   # 判断build.ninja文件是否存在
   if [ -e build.ninja ]; then
     echo -e "\033[1;32 build.ninja file exist, perform incremental compilation... \033[0m"
+    rm -rf ${LLVM_LPU_DIR}/llvm/lib/Target/LPU
+    cp -rf ${ROOT_DIR}/chapters/LPU/${to_learn_lpu_stage}/* ${LLVM_LPU_DIR}/llvm/lib/Target/.
     cd ${LLVM_LPU_DIR}
     cd ${LLVM_LPU_DIR}/build
-    time ninja
+    time ninja -v
   else # 如果文件不存在
     echo -e "\033[1;31 build.ninja file not exist, make reconfiguration... \033[0m"
-    cd ${LLVM_LPU_DIR}
-    rm -rvf clang
-    rm -rvf clang++
-    rm -rvf llvm
-    ln -s ${LLVM_PROJECT_DIR}/clang clang
-    ln -s ${LLVM_PROJECT_DIR}/clang++ clang++
-    ln -s ${LLVM_PROJECT_DIR}/../../llvm llvm
-    cd -
     # popd vscode not support 'popd' command
-    cp -rf ${ROOT_DIR}/llvm/modify_lpu/llvm/* ${LLVM_LPU_DIR}/llvm/.
     rm -rf ${LLVM_LPU_DIR}/llvm/lib/Target/LPU
     cp -rf ${ROOT_DIR}/chapters/LPU/${to_learn_lpu_stage}/* ${LLVM_LPU_DIR}/llvm/lib/Target/.
     mkdir -p ${LLVM_LPU_DIR}/build
