@@ -9,16 +9,27 @@
             "type": "lldb",
             "request": "launch",
             //调试程序路径，需根据实际情况配置，需要调试的后端代码逻辑
-            // 调试 llvm-tblgen工具的配置
-            "program": "/home1/liangnus/learning/llvm-cpu0/tutorial/lpu/build/bin/llvm-tblgen",
-            "args":["-gen-register-info",
+            // 练习 tablegen
+            "program": "${workspaceFolder}/tutorial/lpu/build/bin/llvm-tblgen",
+            "args": [
                     "-o",
                     "bbb.inc",
-                    "${workspaceFolder}/tutorial/lpu/llvm/lib/Target/LPU/LPU.td",
+                    "${workspaceFolder}/tutorial/lpu/llvm/lib/Target/LPU/Practise.td",
                     "-I",
                     "${workspaceFolder}/tutorial/lpu/llvm/include/",
                     "-I", 
-                    "${workspaceFolder}/tutorial/lpu/llvm/lib/Target/LPU/"],
+                    "${workspaceFolder}/tutorial/lpu/llvm/lib/Target/LPU/",
+            ],
+            // 调试 llvm-tblgen工具的配置
+            // "program": "/home1/liangnus/learning/llvm-cpu0/tutorial/lpu/build/bin/llvm-tblgen",
+            // "args":["-gen-register-info",
+            //         "-o",
+            //         "bbb.inc",
+            //         "${workspaceFolder}/tutorial/lpu/llvm/lib/Target/LPU/LPU.td",
+            //         "-I",
+            //         "${workspaceFolder}/tutorial/lpu/llvm/include/",
+            //         "-I", 
+            //         "${workspaceFolder}/tutorial/lpu/llvm/lib/Target/LPU/"],
             // 调试llvm后端工具llc的配置
             // "program": "${workspaceFolder}/tutorial/test/build/bin/llc",
             // "args": ["-O2",

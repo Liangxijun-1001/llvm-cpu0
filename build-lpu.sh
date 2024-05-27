@@ -1,7 +1,7 @@
 ###
  # @Author: Liangnus
  # @Date: 2024-04-01 02:24:29
- # @LastEditTime: 2024-05-10 06:15:46
+ # @LastEditTime: 2024-05-27 03:18:43
  # @LastEditors: Liangnus
  # @Description: 编译LLVM-LPU后端代码
  # @FilePath: /llvm-cpu0/build-lpu.sh
@@ -61,6 +61,7 @@ if ! test -d ${LLVM_LPU_DIR}; then
 # clang has better diagnosis in report error message
   # 在编译LLVM-LPU后端的时候直接使用之前编译的LLVM clang和clang++编译代码
   cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${LLVM_LPU_DIR}/clang++ -DCMAKE_C_COMPILER=${LLVM_LPU_DIR}/clang \
+  -DLLVM_CCACHE_BUILD=ON \
   -DLLVM_TARGETS_TO_BUILD=LPU \
   -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=LPU \
   -DLLVM_OPTIMIZED_TABLEGEN=On  \
@@ -93,6 +94,7 @@ else #如果存在lpu文件夹
     mkdir -p ${LLVM_LPU_DIR}/build
     cd ${LLVM_LPU_DIR}/build
     cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${LLVM_LPU_DIR}/clang++ -DCMAKE_C_COMPILER=${LLVM_LPU_DIR}/clang \
+    -DLLVM_CCACHE_BUILD=ON \
     -DLLVM_TARGETS_TO_BUILD=LPU \
     -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=LPU \
     -DLLVM_OPTIMIZED_TABLEGEN=On  \
