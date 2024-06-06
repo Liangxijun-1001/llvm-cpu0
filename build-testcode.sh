@@ -2,7 +2,7 @@
 ###
  # @Author: Liangnus
  # @Date: 2024-03-19 05:43:16
- # @LastEditTime: 2024-04-01 04:58:19
+ # @LastEditTime: 2024-06-21 04:47:05
  # @LastEditors: Liangnus
  # @Description: 编译测试代码脚本
  # @FilePath: /llvm-cpu0/build-testcode.sh
@@ -32,12 +32,12 @@ file_name_without_extension=${test_file%.*}
 subffix=".ll"
 
 if [ "${file_extension}" = "c" ]; then
-    ${CLANG} -O2 -S "$test_file" -emit-llvm -o "$file_name_without_extension$subffix"
+    ${CLANG} -O1 -S "$test_file" -emit-llvm -o "$file_name_without_extension$subffix"
     echo "\033[1;32m LLVM汇编生成成功！ $file_name_without_extension$subffix \033[4m"
 fi
 
 if [ "${file_extension}" = "cpp" ]; then
-     ${CLANG_PLUSPLUS} -O2 -S "$test_file" -emit-llvm -o "$file_name_without_extension$subffix"
+     ${CLANG_PLUSPLUS} -O1 -S "$test_file" -emit-llvm -o "$file_name_without_extension$subffix"
      echo "\033[1;32m LLVM汇编生成成功！ $file_name_without_extension$subffix \033[4m"
 fi
 
